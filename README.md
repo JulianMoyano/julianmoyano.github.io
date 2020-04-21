@@ -1,2 +1,714 @@
 # julianmoyano.github.io
-<b>cuadro1</b>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Archivo</title>
+    <meta charset="UTF-8" />
+  </head>
+
+  <body>
+    <div id="visualization" style="width: 100%; height: 600px"></div>
+
+    <script src="https://get.carrotsearch.com/foamtree/demo/carrotsearch.foamtree.js"></script>
+    <script>
+if (CarrotSearchFoamTree.supported) {
+  var foamtree = new CarrotSearchFoamTree({
+    id: "visualization",
+    dataObject: {
+      groups: [
+      {
+        label: "1 Gobierno",
+        weight: 1,
+        groups: [
+          {
+            label: "1.00 Ayuntamiento",
+            weight: 1,
+            groups: [
+              {
+                label: "Expediente de sesiones",
+                weight: 1,
+                id: "2"
+              },
+              {
+                label: "Registros de actas de sesiones",
+                weight: 1,
+                id: "3"
+              },
+              {
+                label: "Correspondencia",
+                weight: 1,
+                id: "4"
+              },
+              {
+                label: "Disposiciones recibidas",
+                weight: 1,
+                id: "5"
+              },
+			                {
+                label: "...",
+                weight: 1,
+                id: "5"
+              },
+              {
+                label: "Registros de disposiciones",
+                weight: 1,
+                id: "6"
+              }
+            ],
+            id: "1"
+          },
+          {
+            label: "1.02 Alcalde",
+            weight: 1,
+            groups: [
+              {
+                label: "Disposiciones",
+                weight: 1,
+                id: "8"
+              },
+              {
+                label: "Registros",
+                weight: 1,
+                id: "9"
+              },
+              {
+                label: "Expedientes gubernativos",
+                weight: 1,
+                id: "10"
+              },
+              {
+                label: "Expedientes judiciales",
+                weight: 1,
+                id: "11"
+              },
+			   {
+                label: "Registros judiciales",
+                weight: 1,
+                id: "11"
+              },
+              {
+                label: "...",
+                weight: 1,
+                id: "12"
+              }
+            ],
+            id: "7"
+          },
+          {
+            label: "1.03 Comisiones de Gobierno",
+            weight: 1,
+            groups: [
+              {
+                label: "Expedientes de sesiones",
+                weight: 1,
+                id: "14"
+              },
+             {
+                label: "Registros de actas sesiones",
+                weight: 1,
+                id: "18"
+              }
+            ],
+            id: "13"
+          },
+          {
+            label: "1.04 Comisiones informativas y especiales",
+            weight: 1,
+            groups: [
+              {
+                label: "Expedientes de sesiones",
+                weight: 1,
+                id: "26"
+              },
+              {
+                label: "Registros de actas de sesiones",
+                weight: 1,
+                id: "30"
+              }
+            ],
+            id: "25"
+          }
+        ],
+        id: "0"
+      },
+      {
+        label: "2 Administración",
+        weight: 1,
+        groups: [
+          {
+            label: "2.01 Secretaría",
+            weight: 1,
+            groups: [
+              {
+                label: "Expedientes",
+                weight: 1,
+                id: "33"
+              },
+              {
+                label: "Registros",
+                weight: 1,
+                id: "34"
+              },
+             {
+                label: "Correspondencia",
+                weight: 1,
+                id: "37"
+              }
+            ],
+            id: "32"
+          },
+          {
+            label: "2.02 Registro general",
+            weight: 1,
+            groups: [
+               {
+                label: "Registros",
+                weight: 1,
+                id: "43"
+              }
+            ],
+            id: "38"
+          },
+          {
+            label: "2.03 Patrimonio",
+            weight: 1,
+            groups: [
+              {
+                label: "Expedientes de bienes",
+                weight: 1,
+                id: "45"
+              },
+               {
+                label: "Expedientes de derechos y acciones",
+                weight: 1,
+                id: "49"
+              }
+            ],
+            id: "44"
+          },
+          {
+            label: "2.04 Personal",
+            weight: 1,
+            groups: [
+              {
+                label: "Expedientes de administración",
+                weight: 1,
+                id: "51"
+              },
+              {
+                label: "Registros de administración",
+                weight: 1,
+                id: "52"
+              },
+              {
+                label: "Expedientes de selección de personal",
+                weight: 1,
+                id: "53"
+              },
+              {
+                label: "Expedientes personales",
+                weight: 1,
+                id: "54"
+              },
+			      {
+                label: "Expedientes de representación de personal",
+                weight: 1,
+                id: "54"
+              },
+			      {
+                label: "Registros de prestación social",
+                weight: 1,
+                id: "54"
+              },
+              {
+                label: "...",
+                weight: 1,
+                id: "55"
+              }
+            ],
+            id: "50"
+          },
+		   {
+            label: "2.05 Servicios Jurídicos",
+            weight: 1,
+            groups: [
+              {
+                label: "Expedientes",
+                weight: 1,
+                id: "51"
+              },
+           
+              {
+                label: "...",
+                weight: 1,
+                id: "55"
+              }
+            ],
+            id: "50"
+          },
+		   {
+            label: "2.06 Contratación",
+            weight: 1,
+            groups: [
+              {
+                label: "Expedientes",
+                weight: 1,
+                id: "51"
+              },
+              {
+                label: "Registros",
+                weight: 1,
+                id: "55"
+              }
+            ],
+            id: "50"
+          },
+       		  {
+            label: "2.07 Archivo",
+            weight: 1,
+            groups: [
+              {
+                label: "Instrumentos de control",
+                weight: 1,
+                id: "57"
+              },
+              {
+                label: "Instrumentos de descripción",
+                weight: 1,
+                id: "58"
+              },
+              {
+                label: "Expedientes de archivo",
+                weight: 1,
+                id: "59"
+              },
+             {
+                label: "Expedientes de Actividades",
+                weight: 1,
+                id: "61"
+              }
+            ],
+            id: "56"
+          }
+        ],
+        id: "31"
+      },
+      {
+        label: "3 Servicios",
+        weight: 1,
+        groups: [
+          {
+            label: "3.01 Obras y Urbanismo",
+            weight: 1,
+            groups: [
+              {
+                label: "Expedientes de planeamiento urbanístico",
+                weight: 1,
+                id: "64"
+              },
+              {
+                label: "Expedientes de disciplina urbanística",
+                weight: 1,
+                id: "65"
+              },
+              {
+                label: "Registros de disciplina urbanística",
+                weight: 1,
+                id: "66"
+              },
+              {
+                label: "Expedientes de obras municipales",
+                weight: 1,
+                id: "67"
+              },
+              {
+                label: "...",
+                weight: 1,
+                id: "68"
+              }
+            ],
+            id: "63"
+          },
+          {
+            label: "3.02 Servicios Agropecuarios e Industriales – Promoción Económica",
+            weight: 1,
+            groups: [
+              {
+                label: "Expedientes de sesiones de Juntas Locales Agricultura",
+                weight: 1,
+                id: "70"
+              },
+              {
+                label: "Registros de actas de sesiones de Juntas Locales",
+                weight: 1,
+                id: "71"
+              },
+              {
+                label: "Registros",
+                weight: 1,
+                id: "72"
+              },
+              {
+                label: "Expedientes de sesiones de Juntas Locales Industria",
+                weight: 1,
+                id: "73"
+              },
+			    {
+                label: "Registros de actas de sesiones de Juntas Locales Industria",
+                weight: 1,
+                id: "73"
+              },
+              {
+                label: "...",
+                weight: 1,
+                id: "74"
+              }
+            ],
+            id: "69"
+          },
+          {
+            label: "3.03 Abastos y Consumo",
+            weight: 1,
+            groups: [
+              {
+                label: "Expedientes de sesiones de Juntas Locales Abastos",
+                weight: 1,
+                id: "76"
+              },
+              {
+                label: "Registro de actas de sesiones de Juntas Locales Abastos",
+                weight: 1,
+                id: "77"
+              },
+              {
+                label: "Expedientes de policía de abastos",
+                weight: 1,
+                id: "78"
+              },
+              {
+                label: "Registros de policía de abastos",
+                weight: 1,
+                id: "79"
+              },
+			   {
+                label: "...",
+                weight: 1,
+                id: "79"
+              },
+              {
+                label: "Partes de servicio mercados",
+                weight: 1,
+                id: "80"
+              }
+            ],
+            id: "75"
+          },
+          {
+            label: "3.04 Transporte",
+            weight: 1,
+            groups: [
+              {
+                label: "Expedientes de Licencias de transporte público de viajeros",
+                weight: 1,
+                id: "82"
+              },
+              {
+                label: "Registros de transportes",
+                weight: 1,
+                id: "86"
+              }
+            ],
+            id: "81"
+          },
+		      {
+            label: "3.05 Seguridad Ciudadana",
+            weight: 1,
+            groups: [
+              {
+                label: "Expedientes de sesiones de Juntas Locales Seguridad",
+                weight: 1,
+                id: "82"
+              },
+              {
+                label: "...",
+                weight: 1,
+                id: "86"
+              }
+            ],
+            id: "81"
+          },
+		     
+		  	      {
+            label: "3.06 Sanidad",
+            weight: 1,
+            groups: [
+              {
+                label: "Expedientes de Sanidad Médica",
+                weight: 1,
+                id: "82"
+              },
+             {
+                label: "...",
+                weight: 1,
+                id: "86"
+              }
+            ],
+            id: "81"
+          },
+		  	      {
+            label: "3.07 Beneficencia y Asistencia Social",
+            weight: 1,
+            groups: [
+              {
+                label: "Expedientes de sesiones de Juntas Locales Beneficencia",
+                weight: 1,
+                id: "82"
+              },
+              {
+                label: "...",
+                weight: 1,
+                id: "86"
+              }
+            ],
+            id: "81"
+          },
+		  	      {
+            label: "3.08 Educación",
+            weight: 1,
+            groups: [
+              {
+                label: "Expedientes de sesiones de Juntas Locales Educación",
+                weight: 1,
+                id: "82"
+              },
+             {
+                label: "...",
+                weight: 1,
+                id: "86"
+              }
+            ],
+            id: "81"
+          },
+		  	      {
+            label: "3.09 Cultura",
+            weight: 1,
+            groups: [
+              {
+                label: "Expedientes de Actividades culturales",
+                weight: 1,
+                id: "82"
+              },
+              {
+                label: "Expedientes de festejos",
+                weight: 1,
+                id: "83"
+              },
+          
+              {
+                label: "...",
+                weight: 1,
+                id: "86"
+              }
+            ],
+            id: "81"
+          },
+		  	      {
+            label: "3.10 Deporte",
+            weight: 1,
+            groups: [
+              {
+                label: "Expedientes de actividades deportivas",
+                weight: 1,
+                id: "82"
+              },
+              {
+                label: "Centros deportivos",
+                weight: 1,
+                id: "83"
+              },
+              {
+                label: "...",
+                weight: 1,
+                id: "86"
+              }
+            ],
+            id: "81"
+          },
+		  	      {
+            label: "3.11 Población",
+            weight: 1,
+            groups: [
+              {
+                label: "Expedientes de boletines demográficos",
+                weight: 1,
+                id: "82"
+              },
+              {
+                label: "Estadísticas",
+                weight: 1,
+                id: "83"
+              },
+              {
+                label: "...",
+                weight: 1,
+                id: "86"
+              }
+            ],
+            id: "81"
+          },
+		  	      {
+            label: "3.12 Quintas",
+            weight: 1,
+            groups: [
+              {
+                label: "Expedientes personales",
+                weight: 1,
+                id: "82"
+              },
+              {
+                label: "Registro de padrones de alistamiento",
+                weight: 1,
+                id: "83"
+              },
+              {
+                label: "...",
+                weight: 1,
+                id: "86"
+              }
+            ],
+            id: "81"
+          },
+          {
+            label: "3.13 Elecciones",
+            weight: 1,
+            groups: [
+              {
+                label: "Expedientes de sesiones de Juntas Locales elecciones",
+                weight: 1,
+                id: "88"
+              },
+              {
+                label: "Registro de actas de sesiones de Juntas Locales elecciones",
+                weight: 1,
+                id: "89"
+              },
+             {
+                label: "...",
+                weight: 1,
+                id: "92"
+              }
+            ],
+            id: "87"
+          }
+        ],
+        id: "62"
+      },
+      {
+        label: "4 Hacienda",
+        weight: 1,
+        groups: [
+          {
+            label: "4.01 Intervención Económica",
+            weight: 1,
+            groups: [
+              {
+                label: "Expedientes de presupuestos",
+                weight: 1,
+                id: "436"
+              },
+              {
+                label: "Libros diarios de intervención de pagos",
+                weight: 1,
+                id: "437"
+              },
+              {
+                label: "Libros mayores",
+                weight: 1,
+                id: "438"
+              },
+              {
+                label: "Libros registro de mandamientos de pago",
+                weight: 1,
+                id: "439"
+              },
+              {
+                label: "...",
+                weight: 1,
+                id: "440"
+              }
+            ],
+            id: "435"
+          },
+          {
+            label: "4.02 Financiación y Tributación",
+            weight: 1,
+            groups: [
+              {
+                label: "Expedientes de financiación",
+                weight: 1,
+                id: "442"
+              },
+              {
+                label: "Registros de Operaciones de crédito",
+                weight: 1,
+                id: "443"
+              },
+              {
+                label: "Registros de Amillaramientos",
+                weight: 1,
+                id: "444"
+              },
+             {
+                label: "...",
+                weight: 1,
+                id: "446"
+              }
+            ],
+            id: "441"
+          },
+          {
+            label: "4.03 Tesorería",
+            weight: 1,
+            groups: [
+              {
+                label: "Expedientes de Cuentas de propios y arbitrios",
+                weight: 1,
+                id: "460"
+              },
+              {
+                label: "Expedientes de Cuentas de caudales",
+                weight: 1,
+                id: "461"
+              },
+              {
+                label: "Libros auxiliares de cuentas corrientes",
+                weight: 1,
+                id: "462"
+              },
+              {
+                label: "Expedientes de arrendamiento Caja",
+                weight: 1,
+                id: "463"
+              },
+              {
+                label: "...",
+                weight: 1,
+                id: "464"
+              }
+            ],
+            id: "459"
+          }
+        ],
+        id: "434"
+      }
+      
+      ]
+    }
+  });
+} else {
+  console.log("Visualization not supported.");
+}
+    </script>
+  </body>
+</html>
+
