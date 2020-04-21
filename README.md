@@ -1,2 +1,2 @@
 # julianmoyano.github.io
-cuadro1
+<b>cuadro1</b>
