@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expediente, web, blog y otros documentos del montón. documentalqueridowatson.es 2005-2025</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #111;
+            overflow: hidden;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            background: #111;
+        }
+
+        .overlay-text {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1.2rem;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 12px 25px;
+            border-radius: 8px;
+            z-index: 10;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1s ease-in;
+            max-width: 90%;
+            white-space: nowrap;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, #00d4ff, #0099ff);
+            z-index: 11;
+            animation: progress 12s linear;
+        }
+
+        @keyframes progress {
+            from {
+                width: 0%;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        /* Indicadores de slides */
+        .indicators {
+            position: absolute;
+            bottom: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        /* Responsive para móviles */
+        @media (max-width: 768px) {
+            .carousel-slide img {
+                object-fit: contain;
+            }
+
+            .overlay-text {
+                bottom: 15px;
+                padding: 10px 20px;
+                font-size: 1rem;
+                max-width: 85%;
+            }
+
+            .indicators {
+                bottom: 60px;
+            }
+
+            .indicator {
+                width: 8px;
+                height: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .overlay-text {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+                bottom: 10px;
+            }
+
+            .indicators {
+                bottom: 50px;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="carousel-container" onclick="redirigir()">
+        <div class="carousel">
+            <div class="carousel-slide active">
+                <img src="images/img1.jpg" alt="Imagen 1">
+            </div>
+            <div class="carousel-slide">
+                <img src="images/img2.jpg" alt="Imagen 2">
+            </div>
+            <div class="carousel-slide">
+                <img src="images/img3.jpg" alt="Imagen 3">
+            </div>
+        </div>
+
+        <div class="indicators">
+            <div class="indicator active"></div>
+            <div class="indicator"></div>
+            <div class="indicator"></div>
+        </div>
+
+        <div class="overlay-text">
+            Este blog fue archivado...
+        </div>
+
+        <div class="progress-bar"></div>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.carousel-slide');
+        const indicators = document.querySelectorAll('.indicator');
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+        const slideDuration = 4000; // 4 segundos por imagen
+        const totalDuration = totalSlides * slideDuration;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                indicators[i].classList.remove('active');
+            });
+            
+            slides[index].classList.add('active');
+            indicators[index].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentSlide++;
+            
+            if (currentSlide >= totalSlides) {
+                // Redirigir cuando termine el último slide
+                setTimeout(() => {
+                    redirigir();
+                }, slideDuration);
+            } else {
+                showSlide(currentSlide);
+            }
+        }
+
+        // Iniciar el carrusel
+        const carouselInterval = setInterval(nextSlide, slideDuration);
+
+        // Redirigir automáticamente al finalizar
+        setTimeout(() => {
+            redirigir();
+        }, totalDuration);
+
+        function redirigir() {
+            window.location.href = "https://web.archive.org/web/20250315115155/https://documentalqueridowatson.es/";
+        }
+    </script>
+
+</body>
+</html>
