@@ -50,24 +50,28 @@
         .carousel-slide img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            object-position: center;
+            background: #111;
         }
 
         .overlay-text {
             position: absolute;
-            bottom: 40px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             color: white;
-            font-size: clamp(1rem, 4vw, 1.5rem);
-            background: rgba(0, 0, 0, 0.7);
-            padding: 15px 30px;
-            border-radius: 12px;
+            font-size: 1.2rem;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 12px 25px;
+            border-radius: 8px;
             z-index: 10;
             text-align: center;
             backdrop-filter: blur(5px);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
             animation: fadeIn 1s ease-in;
+            max-width: 90%;
+            white-space: nowrap;
         }
 
         @keyframes fadeIn {
@@ -104,7 +108,7 @@
         /* Indicadores de slides */
         .indicators {
             position: absolute;
-            bottom: 100px;
+            bottom: 70px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -127,19 +131,37 @@
 
         /* Responsive para móviles */
         @media (max-width: 768px) {
+            .carousel-slide img {
+                object-fit: contain;
+            }
+
             .overlay-text {
-                bottom: 30px;
-                padding: 12px 24px;
-                font-size: clamp(0.9rem, 3.5vw, 1.2rem);
+                bottom: 15px;
+                padding: 10px 20px;
+                font-size: 1rem;
+                max-width: 85%;
             }
 
             .indicators {
-                bottom: 80px;
+                bottom: 60px;
             }
 
             .indicator {
-                width: 10px;
-                height: 10px;
+                width: 8px;
+                height: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .overlay-text {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+                bottom: 10px;
+            }
+
+            .indicators {
+                bottom: 50px;
+                gap: 8px;
             }
         }
     </style>
