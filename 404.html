@@ -238,6 +238,19 @@
             window.location.href = "https://web.archive.org/web/20250315115155/https://documentalqueridowatson.es/";
         }
     </script>
+    <script>
+  // Guarda la ruta original para GitHub Pages (SPA fix)
+  (function () {
+    const path = window.location.pathname;
+    const search = window.location.search;
+    const hash = window.location.hash;
+
+    sessionStorage.setItem(
+      'redirect',
+      path + search + hash
+    );
+  })();
+</script>
 
 </body>
 </html>
