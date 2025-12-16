@@ -2,6 +2,19 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <script>
+  // Guarda la ruta original para GitHub Pages (SPA fix)
+  (function () {
+    const path = window.location.pathname;
+    const search = window.location.search;
+    const hash = window.location.hash;
+
+    sessionStorage.setItem(
+      'redirect',
+      path + search + hash
+    );
+  })();
+</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expediente, web, blog y otros documentos del montón. documentalqueridowatson.es 2005-2025</title>
 
@@ -238,19 +251,7 @@
             window.location.href = "https://web.archive.org/web/20250315115155/https://documentalqueridowatson.es/";
         }
     </script>
-    <script>
-  // Guarda la ruta original para GitHub Pages (SPA fix)
-  (function () {
-    const path = window.location.pathname;
-    const search = window.location.search;
-    const hash = window.location.hash;
-
-    sessionStorage.setItem(
-      'redirect',
-      path + search + hash
-    );
-  })();
-</script>
+    
 
 </body>
 </html>
