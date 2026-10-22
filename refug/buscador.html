@@ -354,11 +354,12 @@ function pintar(desde, hasta) {
     const url = x.url || doc.url || "";
     const terminos = [...new Set([...Object.keys(x.match), ...terminosConsulta].map(limpia).filter(t => t.length > 1))];
     const u = esc(url);
+	const uImg = esc(url.replace("_L-medium.jpg", "_L/TileGroup0/2-1-1.jpg"));
     return `
       <article class="resultado">
         <a class="mini" href="${u}" target="_blank" rel="noopener" aria-label="Abrir imagen del documento">
-          <img src="${u}" alt="" loading="lazy" decoding="async"
-               onerror="this.parentNode.classList.add('sin-imagen');this.parentNode.textContent='Sin vista previa'">
+          <img src="${uImg}" alt="" loading="lazy" decoding="async"
+     onerror="this.parentNode.classList.add('sin-imagen');this.parentNode.textContent='Sin vista previa'">
         </a>
         <div>
           <div class="fuente">Intérieur. Direction générale de la Sûreté nationale (Francia)</div>
