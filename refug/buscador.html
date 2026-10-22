@@ -154,7 +154,7 @@
   dialog article p{margin:0 0 1rem}
   dialog article ul{padding-left:1.2rem; margin:0 0 1rem}
   dialog article li{margin-bottom:.35rem}
-  .pendiente{background:var(--papel-2); border-left:3px solid var(--linea); padding:.6rem .9rem; font-style:italic; color:var(--tinta-2)}
+  .informative{background:var(--papel-2); border-left:3px solid var(--linea); padding:.6rem .9rem; font-style:italic; color:var(--tinta-2)}
 
   footer{max-width:960px; margin:0 auto; padding:0 16px 2rem; color:#d9d3c9; font-size:.8rem; text-align:center}
   footer button{background:none; border:0; color:inherit; text-decoration:underline; cursor:pointer; font:inherit}
@@ -178,22 +178,21 @@
 
 <header class="top">
   <div class="marca">
-    <small>Proyecto de Archivo y recuerdos</small>
-    Refugiados españoles en Francia
+    <small>Archivos e Inteligencia Artiticial</small>
+    Refugiados en Francia por la Guerra Civil Española
   </div>
   <nav class="top">
-    <button type="button" data-abrir="dlg-saber">Saber más</button>
-    <button type="button" data-abrir="dlg-proyecto">El proyecto</button>
+       <button type="button" data-abrir="dlg-proyecto">Los datos: Fuentes + IA</button>
   </nav>
 </header>
 
 <section class="portada">
-  <h1>Refugiados españoles de la Guerra Civil en Francia.</h1>
-  <p class="lema">Nombres, lugares y testimonios de quienes cruzaron los Pirineos en 1939.</p>
+    <h1>Nombres de quienes cruzaron los Pirineos en 1939.</h1>
+  <p class="lema">Un lugar para honrar y buscar... quizá saber</p>
 
   <div class="caja-busqueda" role="search">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-    <input id="q" type="search" placeholder="Busca un nombre, un pueblo, un campo…" autocomplete="off" autofocus aria-label="Buscar en el archivo">
+    <input id="q" type="search" placeholder="Busca cualquier apellido, palabra, recuerdo…" autocomplete="off" autofocus aria-label="Buscar">
     <button id="borrar" type="button" aria-label="Borrar búsqueda">×</button>
   </div>
   <p class="ayuda">No importan las tildes ni las mayúsculas. Se admiten palabras incompletas y pequeñas erratas.</p>
@@ -207,80 +206,50 @@
     <button id="mas" type="button" hidden>Mostrar más resultados</button>
   </div>
 
-  <!-- Tarjetas que se muestran cuando no hay búsqueda -->
-  <div id="tarjetas" class="tarjetas">
-    <button class="tarjeta" type="button" data-abrir="dlg-saber">
-      <h2>Saber más</h2>
-      <p>La Retirada de 1939, los campos de internamiento del sur de Francia y el largo exilio que vino después.</p>
-      <span>Leer el contexto histórico →</span>
-    </button>
-    <button class="tarjeta" type="button" data-abrir="dlg-proyecto">
-      <h2>El proyecto</h2>
-      <p>Qué es este archivo, de dónde proceden los documentos y cómo sacar el máximo partido al buscador.</p>
-      <span>Conocer el proyecto →</span>
-    </button>
-  </div>
+  
 </main>
 
 <footer>
-  <button type="button" data-abrir="dlg-saber">Saber más</button> ·
-  <button type="button" data-abrir="dlg-proyecto">El proyecto</button>
+
+  <button type="button" data-abrir="dlg-proyecto">Los datos: Fuentes + IA</button>
 </footer>
 
-<!-- ============ Diálogo: SABER MÁS ============ -->
-<dialog id="dlg-saber" aria-labelledby="t-saber">
-  <div class="cab">
-    <h2 id="t-saber">Saber más</h2>
-    <button class="cerrar" type="button" aria-label="Cerrar">×</button>
-  </div>
-  <article>
-    <h3>La Retirada</h3>
-    <p>Tras la caída de Barcelona a finales de enero de 1939 y el derrumbe del frente de Cataluña, cientos de miles de personas —soldados del Ejército republicano, pero también mujeres, niños y ancianos— se dirigieron a la frontera francesa. Entre finales de enero y mediados de febrero cruzaron los Pirineos cerca de medio millón de personas, en uno de los mayores éxodos de la Europa de entreguerras.</p>
 
-    <h3>Los campos</h3>
-    <p>Las autoridades francesas, desbordadas, internaron a buena parte de los refugiados en campos improvisados, muchos de ellos simples extensiones de arena cercadas con alambre junto al mar, sin barracones ni agua potable en las primeras semanas. Entre los más conocidos:</p>
-    <ul>
-      <li>Argelès-sur-Mer, Saint-Cyprien y Le Barcarès, en las playas del Rosellón.</li>
-      <li>Gurs, en el Bearn; Septfonds, en el Tarn-et-Garonne; Le Vernet, en el Ariège.</li>
-      <li>Rivesaltes, Agde y Bram, entre otros.</li>
-    </ul>
-    <p>Mujeres y niños fueron con frecuencia separados de los hombres y repartidos por centros de acogida en distintos departamentos.</p>
-
-    <h3>Después de los campos</h3>
-    <p>Muchos refugiados regresaron a España en los meses siguientes; otros emigraron a México, Chile u otros países de América. Los que permanecieron en Francia fueron empleados en Compañías de Trabajadores Extranjeros, se alistaron en la Legión Extranjera o en los Regimientos de Marcha de Voluntarios Extranjeros. Con la ocupación alemana, miles fueron deportados a campos nazis —sobre todo a Mauthausen, donde murió la mayoría— y muchos otros se unieron a la Resistencia o a las fuerzas de la Francia Libre.</p>
-
-    <h3>Un exilio largo</h3>
-    <p>Para buena parte de ellos el exilio duró décadas. Sus huellas se conservan en listas de internamiento, fichas de prefectura, correspondencia, fotografías y testimonios familiares, la materia de la que está hecho este archivo.</p>
-
-    <p class="pendiente">[Puedes ampliar esta sección con bibliografía, enlaces a archivos públicos o a memoriales de los campos.]</p>
-  </article>
-</dialog>
 
 <!-- ============ Diálogo: EL PROYECTO ============ -->
 <dialog id="dlg-proyecto" aria-labelledby="t-proyecto">
   <div class="cab">
-    <h2 id="t-proyecto">El proyecto</h2>
+    <h2 id="t-proyecto">Los datos. Fuentes + IA</h2>
     <button class="cerrar" type="button" aria-label="Cerrar">×</button>
   </div>
   <article>
-    <h3>Qué es</h3>
-    <p class="pendiente">[Describe aquí el proyecto: quién lo impulsa, cuándo empezó y con qué propósito.]</p>
-
+    <h3>Cómo se ha hecho</h3>
+    <p class="informative">Los datos han sido obtenidos mediante procesos autónomos de <strong>Inteligencia Artificial</strong> consultando los Archivos Nacionales de Francia. Lo más importante ha sido evitar sobrecargar las infraestructuras de las instituciones francesas y respetando el trabajo previo de todos <strong>los profesionales de los Archivos</strong>, sin ellos esto no hubiera sido posible. Se ha utilizado: Ollama + Deepseek + Tesseract (<strong>Trabajo manual y artesano, también!</strong>). Tiene abundantes errores, pero puede que ayude a alguien a encontrar a quien busca. Se respetan todos los derechos y protección de datos por tratarse de una <strong>investigación de divulgación histórica</strong></p>
     <h3>Las fuentes</h3>
-    <p class="pendiente">[Indica de qué archivos, fondos o colecciones proceden los documentos y cómo se han transcrito.]</p>
+    <p class="informative">Datos extraidos de los archivos de la <strong>Dirección de Policía Territorial y Extranjera (Francia)</strong> relativos a refugiados de la <strong>Guerra Civil Española (1935-1940)</strong>. Toda la documenación de estos datos se encuentra accesible desde la web <a href="https://www.siv.archives-nationales.culture.gouv.fr/siv/rechercheconsultation/consultation/ir/consultationIR.action?consIr=&amp;frontIr=&amp;optionFullText=ET&amp;fullText=r%C3%A9fugi%C3%A9s+espagnols&amp;defaultResultPerPage=15&amp;irId=FRAN_IR_059752&amp;formCaller=&amp;gotoArchivesNums=true&amp;auSeinIR=true&amp;details=false&amp;page=1&amp;udId=" target="_blank">oficial de los Archivos Nacionales Franceses</a> consulta 22/10/2026</p> 
+	 <p> <strong>La web y los documentos son accesibles, pero los datos no</strong>. De ahí el interés y la necesidad para localizar a personas a través de la explotación de los documentos y convertirlos en datos consultables y explotables para cualquier interesado </p> 
 
     <h3>Cómo buscar</h3>
     <ul>
-      <li>Escribe uno o varios términos: se muestran los documentos que contienen <strong>todas</strong> las palabras.</li>
+ <li>Tenga en cuenta la antiguedad de la documentación (calidad de lectura), el idioma francés con abundantes erratas fruto de la traducción o interpretación del español.</li>     
+	 <li>Escribe uno o varios términos: se muestran los documentos que contienen <strong>todas</strong> las palabras.</li>
       <li>No es necesario escribir tildes ni mayúsculas: «Argeles» encuentra «Argelès».</li>
       <li>Puedes escribir el comienzo de una palabra: «refug» encuentra «refugiado», «refugiada», «refugio»…</li>
       <li>El buscador tolera pequeñas erratas, útil con apellidos transcritos de formas distintas.</li>
       <li>Las palabras encontradas aparecen en <strong>negrita</strong>. Pulsa la miniatura o el enlace para ver el documento original.</li>
       <li>Puedes compartir una búsqueda copiando la dirección de la página.</li>
     </ul>
-
-    <h3>Colabora</h3>
-    <p class="pendiente">[Si tienes documentos, fotografías o información sobre algún refugiado, indica aquí cómo contactar.]</p>
+<h3>Publicador</h3>
+  <p class="informative">Julián Moyano Collado . Trabajo con datos y archivos desde el 2003.  En <a href="https://es.linkedin.com/in/jmoyanoc" target="_blank">linkedin </a>, <a href="https://x.com/jmcollado" target="_blank"> X</a> ,  <a href="https://orcid.org/0009-0009-9698-1846" target="_blank">ORCID </a>, y en Zaragoza (Aragón - España)</p>
+  
+  <h3>Imágenes utilizadas</h3>
+  <ul>
+<li class="informative">Arrivés des réfugiés républicains du camp d'Argelès-sur-Mer à celui du Barcarès Archivo:22NUM1PH2-24 Correspond à la photographie 27 Fi 124 du fonds Chauvin, Arrivée des soldats réfugiés au camp du Barcarès.jpg.<a href="https://es.wikipedia.org/wiki/La_retirada#/media/Archivo:22NUM1PH2-24_Correspond_%C3%A0_la_photographie_27_Fi_124_du_fonds_Chauvin,_Arriv%C3%A9e_des_soldats_r%C3%A9fugi%C3%A9s_au_camp_du_Barcar%C3%A8s.jpg" target="_blank">Wikipedia</a> CC BY-SA 4.0</li>
+<li class="informative">Habitations de fortune dans le camp de concentration d'Argelès-sur-Mer. <a href="https://upload.wikimedia.org/wikipedia/commons/8/85/22NUM1PH2-35_Habitations_de_fortune.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=index&amp;utm_content=original" target="_blank">Wikipedia</a> CC BY-SA 4.0</li>
+<li class="informative">Documento familiar</li>
+</ul>
+  
+   
   </article>
 </dialog>
 
@@ -295,8 +264,6 @@ const FONDOS = [
   "images/01.jpg",
   "images/02.jpg",
   "images/03.jpg",
-  "images/04.jpg",
-  "images/05.jpg"
 ];
 
 (function ponerFondo(){
@@ -405,7 +372,7 @@ function pintar(desde, hasta) {
                onerror="this.parentNode.classList.add('sin-imagen');this.parentNode.textContent='Sin vista previa'">
         </a>
         <div>
-          <div class="fuente">${esc(decodeURIComponent(etiqueta(url)))}</div>
+          <div class="fuente">Intérieur. Direction générale de la Sûreté nationale (Francia)</div>
           <p class="texto">${fragmento(doc.texto || "", terminos)}</p>
           <a class="ver" href="${u}" target="_blank" rel="noopener">Ver documento original ↗</a>
         </div>
