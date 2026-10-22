@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Refugiados españoles en Francia · Buscador documental</title>
-<meta name="description" content="Buscador documental sobre los refugiados españoles de la Guerra Civil en Francia.">
+<title>Refugiados de la Guerra Civil española en Francia </title>
+<meta name="description" content="Buscador de refugiados españoles de la Guerra Civil en Francia.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -188,7 +188,7 @@
 </header>
 
 <section class="portada">
-  <h1>Buscador documental del exilio republicano</h1>
+  <h1>Refugiados españoles de la Guerra Civil en Francia.</h1>
   <p class="lema">Nombres, lugares y testimonios de quienes cruzaron los Pirineos en 1939.</p>
 
   <div class="caja-busqueda" role="search">
@@ -292,11 +292,11 @@
    este index.html y añade aquí sus nombres.
    ========================================================= */
 const FONDOS = [
-  "img/fondos/fondo-01.jpg",
-  "img/fondos/fondo-02.jpg",
-  "img/fondos/fondo-03.jpg",
-  "img/fondos/fondo-04.jpg",
-  "img/fondos/fondo-05.jpg"
+  "images/01.jpg",
+  "images/02.jpg",
+  "images/03.jpg",
+  "images/04.jpg",
+  "images/05.jpg"
 ];
 
 (function ponerFondo(){
@@ -405,7 +405,7 @@ function pintar(desde, hasta) {
                onerror="this.parentNode.classList.add('sin-imagen');this.parentNode.textContent='Sin vista previa'">
         </a>
         <div>
-          <div class="fuente">ANF</div>
+          <div class="fuente">${esc(decodeURIComponent(etiqueta(url)))}</div>
           <p class="texto">${fragmento(doc.texto || "", terminos)}</p>
           <a class="ver" href="${u}" target="_blank" rel="noopener">Ver documento original ↗</a>
         </div>
