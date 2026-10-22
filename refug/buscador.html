@@ -45,11 +45,11 @@
   }
 
   /* ---------- Cabecera ---------- */
-  header.top{
-    display:flex; justify-content:space-between; align-items:center; gap:1rem;
-    max-width:960px; margin:0 auto; padding:1.25rem 16px;
-    color:#f1ede6;
-  }
+header.top{
+  display:flex; justify-content:flex-end; align-items:center; gap:1rem;
+  max-width:960px; margin:0 auto; padding:1.25rem 16px;
+  color:#f1ede6;
+}
   .marca{font-family:var(--serif); font-size:1.05rem; letter-spacing:.02em}
   .marca small{display:block; font-family:var(--sans); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; opacity:.75}
   nav.top button{
@@ -144,7 +144,7 @@
   dialog article li{margin-bottom:.35rem}
   .informative{background:var(--papel-2); border-left:3px solid var(--linea); padding:.6rem .9rem; font-style:italic; color:var(--tinta-2)}
 
-  footer{max-width:960px; margin:0 auto; padding:0 16px 2rem; color:#d9d3c9; font-size:.8rem; text-align:center}
+  footer{max-width:960px; margin:0 auto; padding:0 16px 2rem; color:#d9d3c9; font-size:.8rem; text-align:right}
   footer button{background:none; border:0; color:inherit; text-decoration:underline; cursor:pointer; font:inherit}
 
   @media (max-width:640px){
@@ -164,18 +164,14 @@
 <div id="velo" aria-hidden="true"></div>
 
 <header class="top">
-  <div class="marca">
-    <small>Archivos e Inteligencia Artificial</small>
-    Refugiados en Francia por la Guerra Civil Española
-  </div>
   <nav class="top">
-       <button type="button" data-abrir="dlg-proyecto">Los datos: Fuentes + IA</button>
+       <button type="button" data-abrir="dlg-proyecto">Los datos: Archivos + IA</button>
   </nav>
 </header>
 
 <section class="portada">
-    <h1>Nombres de quienes cruzaron los Pirineos en 1939.</h1>
-  <p class="lema">Un lugar para honrar y buscar... quizá saber</p>
+    <h1>Nombres que cruzaron los Pirineos en 1939.</h1>
+  <p class="lema"> Refugiados en Francia por la Guerra Civil Española. Un lugar para honrar y buscar...</p>
 
   <div class="caja-busqueda" role="search">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -195,7 +191,7 @@
 </main>
 
 <footer>
-  <button type="button" data-abrir="dlg-proyecto">Los datos: Fuentes + IA</button>
+  <!--button type="button" data-abrir="dlg-proyecto">Los datos: Archivos + IA</button>-->
 </footer>
 
 
@@ -203,13 +199,13 @@
 <!-- ============ Diálogo: EL PROYECTO ============ -->
 <dialog id="dlg-proyecto" aria-labelledby="t-proyecto">
   <div class="cab">
-    <h2 id="t-proyecto">Los datos. Fuentes + IA</h2>
+    <h2 id="t-proyecto">Los datos: Archivos + IA</h2>
     <button class="cerrar" type="button" aria-label="Cerrar">×</button>
   </div>
   <article>
     <h3>Cómo se ha hecho</h3>
-    <p class="informative">Los datos han sido obtenidos mediante procesos autónomos de <strong>Inteligencia Artificial</strong> consultando los Archivos Nacionales de Francia. Lo más importante ha sido evitar sobrecargar las infraestructuras de las instituciones francesas y respetando el trabajo previo de todos <strong>los profesionales de los Archivos</strong>, sin ellos esto no hubiera sido posible. Se ha utilizado: Ollama + Deepseek + Tesseract (<strong>Trabajo manual y artesano, también!</strong>). Tiene abundantes errores, pero puede que ayude a alguien a encontrar a quien busca. Se respetan todos los derechos y protección de datos por tratarse de una <strong>investigación de divulgación histórica</strong></p>
-    <h3>Las fuentes</h3>
+    <p class="informative">Los datos han sido obtenidos mediante procesos autónomos de <strong>Inteligencia Artificial</strong> consultando los Archivos Nacionales de Francia. Lo más importante ha sido evitar sobrecargar las infraestructuras de las instituciones francesas y respetando el trabajo previo de todos <strong>los profesionales de los Archivos</strong>, sin ellos esto no hubiera sido posible. Se ha utilizado: Ollama + Deepseek + Tesseract (<strong>Trabajo manual y artesano, también!</strong>). Este servicio tiene abundantes errores, pero puede ayudar a encontrar a quien se busca. Se respetan todos los derechos y protección de datos por tratarse de una <strong>investigación de divulgación histórica</strong></p>
+    <h3>Los archivos</h3>
     <p class="informative">Datos extraidos de los archivos de la <strong>Dirección de Policía Territorial y Extranjera (Francia)</strong> relativos a refugiados de la <strong>Guerra Civil Española (1935-1940)</strong>. Toda la documenación de estos datos se encuentra accesible desde la web <a href="https://www.siv.archives-nationales.culture.gouv.fr/siv/rechercheconsultation/consultation/ir/consultationIR.action?consIr=&amp;frontIr=&amp;optionFullText=ET&amp;fullText=r%C3%A9fugi%C3%A9s+espagnols&amp;defaultResultPerPage=15&amp;irId=FRAN_IR_059752&amp;formCaller=&amp;gotoArchivesNums=true&amp;auSeinIR=true&amp;details=false&amp;page=1&amp;udId=" target="_blank">oficial de los Archivos Nacionales Franceses</a> consulta 22/10/2026</p> 
 	 <p> <strong>La web y los documentos son accesibles, pero los datos no</strong>. De ahí el interés y la necesidad para localizar a personas a través de la explotación de los documentos y convertirlos en datos consultables y explotables para cualquier interesado </p> 
 
@@ -223,14 +219,14 @@
       <li>Las palabras encontradas aparecen en <strong>negrita</strong>. Pulsa la miniatura o el enlace para ver el documento original.</li>
       <li>Puedes compartir una búsqueda copiando la dirección de la página.</li>
     </ul>
-<h3>Publicador</h3>
+<h3>Servido por</h3>
   <p class="informative">Julián Moyano Collado . Trabajo con datos y archivos desde el 2003.  En <a href="https://es.linkedin.com/in/jmoyanoc" target="_blank">linkedin </a>, <a href="https://x.com/jmcollado" target="_blank"> X</a> ,  <a href="https://orcid.org/0009-0009-9698-1846" target="_blank">ORCID </a>, y en Zaragoza (Aragón - España)</p>
   
-  <h3>Imágenes utilizadas</h3>
+  <h3>Imágenes de fondo utilizadas</h3>
   <ul>
-<li class="informative">Arrivés des réfugiés républicains du camp d'Argelès-sur-Mer à celui du Barcarès Archivo:22NUM1PH2-24 Correspond à la photographie 27 Fi 124 du fonds Chauvin, Arrivée des soldats réfugiés au camp du Barcarès.jpg.<a href="https://es.wikipedia.org/wiki/La_retirada#/media/Archivo:22NUM1PH2-24_Correspond_%C3%A0_la_photographie_27_Fi_124_du_fonds_Chauvin,_Arriv%C3%A9e_des_soldats_r%C3%A9fugi%C3%A9s_au_camp_du_Barcar%C3%A8s.jpg" target="_blank">Wikipedia</a> CC BY-SA 4.0</li>
-<li class="informative">Habitations de fortune dans le camp de concentration d'Argelès-sur-Mer. <a href="https://upload.wikimedia.org/wikipedia/commons/8/85/22NUM1PH2-35_Habitations_de_fortune.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=index&amp;utm_content=original" target="_blank">Wikipedia</a> CC BY-SA 4.0</li>
-<li class="informative">Documento familiar</li>
+<li>Arrivés des réfugiés républicains du camp d'Argelès-sur-Mer à celui du Barcarès Archivo:22NUM1PH2-24 Correspond à la photographie 27 Fi 124 du fonds Chauvin, Arrivée des soldats réfugiés au camp du Barcarès.jpg.<a href="https://es.wikipedia.org/wiki/La_retirada#/media/Archivo:22NUM1PH2-24_Correspond_%C3%A0_la_photographie_27_Fi_124_du_fonds_Chauvin,_Arriv%C3%A9e_des_soldats_r%C3%A9fugi%C3%A9s_au_camp_du_Barcar%C3%A8s.jpg" target="_blank">Wikipedia</a> CC BY-SA 4.0</li>
+<li>Habitations de fortune dans le camp de concentration d'Argelès-sur-Mer. <a href="https://upload.wikimedia.org/wikipedia/commons/8/85/22NUM1PH2-35_Habitations_de_fortune.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=index&amp;utm_content=original" target="_blank">Wikipedia</a> CC BY-SA 4.0</li>
+<li>Documento familiar</li>
 </ul>
   
    
