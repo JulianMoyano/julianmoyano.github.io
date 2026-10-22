@@ -1,43 +1,453 @@
 <!doctype html>
+<html lang="es">
+<head>
 <meta charset="utf-8">
-<title>Buscador</title>
-<input id="q" placeholder="Buscar…" autofocus style="width:100%;font-size:1.2em;padding:.5em">
-<div id="res"></div>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Refugiados españoles en Francia · Buscador documental</title>
+<meta name="description" content="Buscador documental sobre los refugiados españoles de la Guerra Civil en Francia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --papel:#f5f2ec;
+    --papel-2:#ebe6dc;
+    --tinta:#1f1d1a;
+    --tinta-2:#55504a;
+    --linea:#d6cfc2;
+    --acento:#7a2a22;      /* granate apagado */
+    --marca:#efe1b8;       /* fondo del resaltado */
+    --sombra:0 1px 2px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.06);
+    --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
+    --sans:Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    font-family:var(--sans);
+    color:var(--tinta);
+    background:#2b2925;            /* color de reserva si no carga ninguna imagen */
+    line-height:1.55;
+    min-height:100vh;
+  }
+
+  /* ---------- Fondo rotatorio ---------- */
+  #fondo{
+    position:fixed; inset:0; z-index:-2;
+    background-size:cover; background-position:center;
+    filter:grayscale(100%) contrast(1.05);
+    opacity:0; transition:opacity 1.2s ease;
+  }
+  #fondo.visible{opacity:1}
+  #velo{
+    position:fixed; inset:0; z-index:-1;
+    background:linear-gradient(180deg, rgba(25,23,20,.72) 0%, rgba(25,23,20,.55) 40%, rgba(25,23,20,.82) 100%);
+  }
+
+  /* ---------- Cabecera ---------- */
+  header.top{
+    display:flex; justify-content:space-between; align-items:center; gap:1rem;
+    max-width:960px; margin:0 auto; padding:1.25rem 16px;
+    color:#f1ede6;
+  }
+  .marca{font-family:var(--serif); font-size:1.05rem; letter-spacing:.02em}
+  .marca small{display:block; font-family:var(--sans); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; opacity:.75}
+  nav.top button{
+    background:none; border:0; color:#f1ede6; font:500 .9rem var(--sans);
+    padding:.4rem .2rem; margin-left:1.1rem; cursor:pointer;
+    border-bottom:1px solid transparent;
+  }
+  nav.top button:hover, nav.top button:focus-visible{border-bottom-color:#f1ede6; outline:none}
+
+  /* ---------- Portada ---------- */
+  .portada{max-width:960px; margin:0 auto; padding:3.5rem 16px 2rem; color:#f6f3ee}
+  .portada h1{
+    font-family:var(--serif); font-weight:600; font-size:clamp(1.9rem, 4.5vw, 3rem);
+    line-height:1.15; margin:0 0 .6rem; max-width:22ch;
+  }
+  .portada p.lema{font-family:var(--serif); font-style:italic; font-size:1.1rem; margin:0 0 2rem; opacity:.88; max-width:56ch}
+
+  .caja-busqueda{position:relative}
+  .caja-busqueda svg{position:absolute; left:1rem; top:50%; transform:translateY(-50%); width:20px; height:20px; color:var(--tinta-2); pointer-events:none}
+  #q{
+    width:100%; font:400 1.15rem var(--sans); color:var(--tinta);
+    padding:1rem 3rem 1rem 3rem; border:1px solid var(--linea); border-radius:4px;
+    background:var(--papel); box-shadow:var(--sombra);
+  }
+  #q:focus{outline:2px solid var(--acento); outline-offset:2px}
+  #borrar{
+    position:absolute; right:.6rem; top:50%; transform:translateY(-50%);
+    border:0; background:none; font-size:1.4rem; line-height:1; color:var(--tinta-2);
+    cursor:pointer; padding:.3rem .5rem; display:none;
+  }
+  #borrar.visible{display:block}
+  .ayuda{font-size:.82rem; margin-top:.7rem; opacity:.8}
+
+  /* ---------- Zona de contenido ---------- */
+  main{max-width:960px; margin:0 auto; padding:0 16px 4rem}
+  .panel{background:var(--papel); border-radius:4px; box-shadow:var(--sombra)}
+
+  #estado{
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding:1rem 1.5rem; border-bottom:1px solid var(--linea);
+    font-size:.88rem; color:var(--tinta-2);
+  }
+  #estado:empty{display:none}
+
+  .resultado{
+    display:grid; grid-template-columns:150px 1fr; gap:1.25rem;
+    padding:1.25rem 1.5rem; border-bottom:1px solid var(--linea);
+  }
+  .resultado:last-child{border-bottom:0}
+  .mini{
+    display:block; width:150px; aspect-ratio:4/3; overflow:hidden;
+    background:var(--papel-2); border:1px solid var(--linea); border-radius:2px;
+  }
+  .mini img{width:100%; height:100%; object-fit:cover; display:block; filter:sepia(.15); transition:filter .25s, transform .25s}
+  .mini:hover img{filter:none; transform:scale(1.03)}
+  .mini.sin-imagen{display:flex; align-items:center; justify-content:center; color:var(--tinta-2); font-size:.75rem; text-align:center; padding:.5rem}
+  .resultado .fuente{font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--acento); font-weight:600; margin-bottom:.35rem}
+  .resultado .texto{font-family:var(--serif); font-size:1.05rem; margin:0 0 .6rem}
+  .resultado .texto strong{font-weight:600; background:var(--marca); padding:0 .12em; border-radius:2px}
+  .resultado a.ver{font-size:.85rem; color:var(--tinta); text-decoration:none; border-bottom:1px solid var(--linea)}
+  .resultado a.ver:hover{border-bottom-color:var(--acento); color:var(--acento)}
+
+  .vacio{padding:2.5rem 1.5rem; text-align:center; color:var(--tinta-2); font-family:var(--serif)}
+  .vacio em{display:block; font-size:.9rem; margin-top:.5rem; font-family:var(--sans); font-style:normal}
+
+  #mas{
+    display:block; margin:0 auto; padding:1rem; width:100%;
+    border:0; border-top:1px solid var(--linea); background:none;
+    font:500 .9rem var(--sans); color:var(--acento); cursor:pointer;
+  }
+  #mas:hover{background:var(--papel-2)}
+
+  /* ---------- Tarjetas "Saber más" / "El proyecto" ---------- */
+  .tarjetas{display:grid; grid-template-columns:1fr 1fr; gap:1.25rem}
+  .tarjeta{
+    text-align:left; cursor:pointer; border:0; font:inherit; color:inherit;
+    background:var(--papel); border-radius:4px; box-shadow:var(--sombra);
+    padding:1.6rem 1.6rem 1.4rem; border-top:3px solid var(--acento);
+    transition:transform .2s;
+  }
+  .tarjeta:hover, .tarjeta:focus-visible{transform:translateY(-2px); outline:none}
+  .tarjeta h2{font-family:var(--serif); font-weight:600; font-size:1.35rem; margin:0 0 .5rem}
+  .tarjeta p{margin:0 0 1rem; color:var(--tinta-2); font-size:.95rem}
+  .tarjeta span{font-size:.85rem; font-weight:600; color:var(--acento)}
+
+  /* ---------- Diálogos ---------- */
+  dialog{
+    border:0; padding:0; border-radius:4px; max-width:720px; width:calc(100% - 32px);
+    max-height:85vh; background:var(--papel); color:var(--tinta); box-shadow:0 20px 60px rgba(0,0,0,.4);
+  }
+  dialog::backdrop{background:rgba(20,18,15,.7)}
+  dialog .cab{
+    position:sticky; top:0; background:var(--papel);
+    display:flex; justify-content:space-between; align-items:center;
+    padding:1.1rem 1.75rem; border-bottom:1px solid var(--linea);
+  }
+  dialog .cab h2{font-family:var(--serif); font-weight:600; margin:0; font-size:1.4rem}
+  dialog .cerrar{border:0; background:none; font-size:1.6rem; line-height:1; cursor:pointer; color:var(--tinta-2)}
+  dialog article{padding:1.25rem 1.75rem 2rem; font-family:var(--serif); font-size:1.05rem}
+  dialog article h3{font-family:var(--sans); font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--acento); margin:1.8rem 0 .5rem}
+  dialog article h3:first-child{margin-top:.5rem}
+  dialog article p{margin:0 0 1rem}
+  dialog article ul{padding-left:1.2rem; margin:0 0 1rem}
+  dialog article li{margin-bottom:.35rem}
+  .pendiente{background:var(--papel-2); border-left:3px solid var(--linea); padding:.6rem .9rem; font-style:italic; color:var(--tinta-2)}
+
+  footer{max-width:960px; margin:0 auto; padding:0 16px 2rem; color:#d9d3c9; font-size:.8rem; text-align:center}
+  footer button{background:none; border:0; color:inherit; text-decoration:underline; cursor:pointer; font:inherit}
+
+  @media (max-width:640px){
+    nav.top button{margin-left:.7rem; font-size:.82rem}
+    .portada{padding-top:2rem}
+    .resultado{grid-template-columns:1fr; gap:.8rem; padding:1.1rem 1rem}
+    .mini{width:100%; aspect-ratio:16/9}
+    .tarjetas{grid-template-columns:1fr}
+    #estado{padding:.9rem 1rem}
+    dialog .cab, dialog article{padding-left:1.1rem; padding-right:1.1rem}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div id="fondo" aria-hidden="true"></div>
+<div id="velo" aria-hidden="true"></div>
+
+<header class="top">
+  <div class="marca">
+    <small>Archivo de la memoria</small>
+    Refugiados españoles en Francia
+  </div>
+  <nav class="top">
+    <button type="button" data-abrir="dlg-saber">Saber más</button>
+    <button type="button" data-abrir="dlg-proyecto">El proyecto</button>
+  </nav>
+</header>
+
+<section class="portada">
+  <h1>Buscador documental del exilio republicano</h1>
+  <p class="lema">Nombres, lugares y testimonios de quienes cruzaron los Pirineos en 1939.</p>
+
+  <div class="caja-busqueda" role="search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="q" type="search" placeholder="Busca un nombre, un pueblo, un campo…" autocomplete="off" autofocus aria-label="Buscar en el archivo">
+    <button id="borrar" type="button" aria-label="Borrar búsqueda">×</button>
+  </div>
+  <p class="ayuda">No importan las tildes ni las mayúsculas. Se admiten palabras incompletas y pequeñas erratas.</p>
+</section>
+
+<main>
+  <!-- Resultados -->
+  <div id="panel-resultados" class="panel" hidden>
+    <div id="estado"></div>
+    <div id="res" aria-live="polite"></div>
+    <button id="mas" type="button" hidden>Mostrar más resultados</button>
+  </div>
+
+  <!-- Tarjetas que se muestran cuando no hay búsqueda -->
+  <div id="tarjetas" class="tarjetas">
+    <button class="tarjeta" type="button" data-abrir="dlg-saber">
+      <h2>Saber más</h2>
+      <p>La Retirada de 1939, los campos de internamiento del sur de Francia y el largo exilio que vino después.</p>
+      <span>Leer el contexto histórico →</span>
+    </button>
+    <button class="tarjeta" type="button" data-abrir="dlg-proyecto">
+      <h2>El proyecto</h2>
+      <p>Qué es este archivo, de dónde proceden los documentos y cómo sacar el máximo partido al buscador.</p>
+      <span>Conocer el proyecto →</span>
+    </button>
+  </div>
+</main>
+
+<footer>
+  <button type="button" data-abrir="dlg-saber">Saber más</button> ·
+  <button type="button" data-abrir="dlg-proyecto">El proyecto</button>
+</footer>
+
+<!-- ============ Diálogo: SABER MÁS ============ -->
+<dialog id="dlg-saber" aria-labelledby="t-saber">
+  <div class="cab">
+    <h2 id="t-saber">Saber más</h2>
+    <button class="cerrar" type="button" aria-label="Cerrar">×</button>
+  </div>
+  <article>
+    <h3>La Retirada</h3>
+    <p>Tras la caída de Barcelona a finales de enero de 1939 y el derrumbe del frente de Cataluña, cientos de miles de personas —soldados del Ejército republicano, pero también mujeres, niños y ancianos— se dirigieron a la frontera francesa. Entre finales de enero y mediados de febrero cruzaron los Pirineos cerca de medio millón de personas, en uno de los mayores éxodos de la Europa de entreguerras.</p>
+
+    <h3>Los campos</h3>
+    <p>Las autoridades francesas, desbordadas, internaron a buena parte de los refugiados en campos improvisados, muchos de ellos simples extensiones de arena cercadas con alambre junto al mar, sin barracones ni agua potable en las primeras semanas. Entre los más conocidos:</p>
+    <ul>
+      <li>Argelès-sur-Mer, Saint-Cyprien y Le Barcarès, en las playas del Rosellón.</li>
+      <li>Gurs, en el Bearn; Septfonds, en el Tarn-et-Garonne; Le Vernet, en el Ariège.</li>
+      <li>Rivesaltes, Agde y Bram, entre otros.</li>
+    </ul>
+    <p>Mujeres y niños fueron con frecuencia separados de los hombres y repartidos por centros de acogida en distintos departamentos.</p>
+
+    <h3>Después de los campos</h3>
+    <p>Muchos refugiados regresaron a España en los meses siguientes; otros emigraron a México, Chile u otros países de América. Los que permanecieron en Francia fueron empleados en Compañías de Trabajadores Extranjeros, se alistaron en la Legión Extranjera o en los Regimientos de Marcha de Voluntarios Extranjeros. Con la ocupación alemana, miles fueron deportados a campos nazis —sobre todo a Mauthausen, donde murió la mayoría— y muchos otros se unieron a la Resistencia o a las fuerzas de la Francia Libre.</p>
+
+    <h3>Un exilio largo</h3>
+    <p>Para buena parte de ellos el exilio duró décadas. Sus huellas se conservan en listas de internamiento, fichas de prefectura, correspondencia, fotografías y testimonios familiares, la materia de la que está hecho este archivo.</p>
+
+    <p class="pendiente">[Puedes ampliar esta sección con bibliografía, enlaces a archivos públicos o a memoriales de los campos.]</p>
+  </article>
+</dialog>
+
+<!-- ============ Diálogo: EL PROYECTO ============ -->
+<dialog id="dlg-proyecto" aria-labelledby="t-proyecto">
+  <div class="cab">
+    <h2 id="t-proyecto">El proyecto</h2>
+    <button class="cerrar" type="button" aria-label="Cerrar">×</button>
+  </div>
+  <article>
+    <h3>Qué es</h3>
+    <p class="pendiente">[Describe aquí el proyecto: quién lo impulsa, cuándo empezó y con qué propósito.]</p>
+
+    <h3>Las fuentes</h3>
+    <p class="pendiente">[Indica de qué archivos, fondos o colecciones proceden los documentos y cómo se han transcrito.]</p>
+
+    <h3>Cómo buscar</h3>
+    <ul>
+      <li>Escribe uno o varios términos: se muestran los documentos que contienen <strong>todas</strong> las palabras.</li>
+      <li>No es necesario escribir tildes ni mayúsculas: «Argeles» encuentra «Argelès».</li>
+      <li>Puedes escribir el comienzo de una palabra: «refug» encuentra «refugiado», «refugiada», «refugio»…</li>
+      <li>El buscador tolera pequeñas erratas, útil con apellidos transcritos de formas distintas.</li>
+      <li>Las palabras encontradas aparecen en <strong>negrita</strong>. Pulsa la miniatura o el enlace para ver el documento original.</li>
+      <li>Puedes compartir una búsqueda copiando la dirección de la página.</li>
+    </ul>
+
+    <h3>Colabora</h3>
+    <p class="pendiente">[Si tienes documentos, fotografías o información sobre algún refugiado, indica aquí cómo contactar.]</p>
+  </article>
+</dialog>
 
 <script src="https://cdn.jsdelivr.net/npm/minisearch@7.1.0/dist/umd/index.min.js"></script>
 <script>
-const N = 5; // palabras de contexto a cada lado
+/* =========================================================
+   1. FONDO ROTATORIO
+   Coloca las imágenes en la carpeta  img/fondos/  junto a
+   este index.html y añade aquí sus nombres.
+   ========================================================= */
+const FONDOS = [
+  "img/fondos/fondo-01.jpg",
+  "img/fondos/fondo-02.jpg",
+  "img/fondos/fondo-03.jpg",
+  "img/fondos/fondo-04.jpg",
+  "img/fondos/fondo-05.jpg"
+];
+
+(function ponerFondo(){
+  if (!FONDOS.length) return;
+  let anterior = -1;
+  try { anterior = Number(localStorage.getItem("fondoAnterior") ?? -1); } catch(e){}
+  let i = Math.floor(Math.random() * FONDOS.length);
+  if (FONDOS.length > 1 && i === anterior) i = (i + 1) % FONDOS.length; // no repetir la misma seguida
+  try { localStorage.setItem("fondoAnterior", i); } catch(e){}
+  const img = new Image();
+  img.onload = () => {
+    const f = document.getElementById("fondo");
+    f.style.backgroundImage = `url("${FONDOS[i]}")`;
+    f.classList.add("visible");
+  };
+  img.src = FONDOS[i];
+})();
+
+/* =========================================================
+   2. DIÁLOGOS "Saber más" y "El proyecto"
+   ========================================================= */
+document.querySelectorAll("[data-abrir]").forEach(b =>
+  b.addEventListener("click", () => document.getElementById(b.dataset.abrir).showModal()));
+document.querySelectorAll("dialog").forEach(d => {
+  d.querySelector(".cerrar").addEventListener("click", () => d.close());
+  d.addEventListener("click", e => { if (e.target === d) d.close(); }); // clic fuera = cerrar
+});
+
+/* =========================================================
+   3. BUSCADOR
+   ========================================================= */
+const CONTEXTO = 12;      // palabras de contexto a cada lado
+const POR_PAGINA = 20;    // resultados por tanda
+
 const norm = s => s.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
-let ms, paginas;
+const limpia = s => norm(s).replace(/[^\p{L}\p{N}]/gu, "");
+const esc = s => s.replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+const $q = document.getElementById("q");
+const $res = document.getElementById("res");
+const $estado = document.getElementById("estado");
+const $panel = document.getElementById("panel-resultados");
+const $tarjetas = document.getElementById("tarjetas");
+const $mas = document.getElementById("mas");
+const $borrar = document.getElementById("borrar");
+
+let ms, porId = new Map(), resultados = [], mostrados = 0, terminosConsulta = [];
+
+$estado.textContent = "Cargando el archivo…";
 
 fetch("paginas.json").then(r => r.json()).then(data => {
-  paginas = data;
+  data.forEach((p, i) => porId.set(p.id ?? i, p));
   ms = new MiniSearch({
     fields: ["texto"],
     storeFields: ["url"],
     processTerm: t => norm(t),
     searchOptions: { prefix: true, fuzzy: 0.2, combineWith: "AND" }
   });
-  ms.addAll(paginas);
+  ms.addAll(data);
+  $estado.textContent = "";
+  // Búsqueda compartida por URL (?q=...)
+  const inicial = new URLSearchParams(location.search).get("q");
+  if (inicial) { $q.value = inicial; buscar(); } else if ($q.value) buscar();
+}).catch(() => {
+  $panel.hidden = false;
+  $estado.textContent = "";
+  $res.innerHTML = `<div class="vacio">No se ha podido cargar el archivo de datos.</div>`;
 });
 
+/* Elige la ventana de texto con más términos distintos y pone en negrita las coincidencias */
 function fragmento(texto, terminos) {
-  const palabras = texto.split(" ");
-  const ter = terminos.map(norm);
-  const i = palabras.findIndex(p => ter.some(t => norm(p).includes(t)));
-  if (i < 0) return palabras.slice(0, N * 2).join(" ") + "…";
-  const ini = Math.max(0, i - N), fin = i + N + 1;
-  return (ini ? "… " : "") + palabras.slice(ini, fin).join(" ") + (fin < palabras.length ? " …" : "");
+  const palabras = texto.split(/\s+/);
+  const coincide = p => { const w = limpia(p); return w && terminos.some(t => w.includes(t)); };
+  const marcas = palabras.map(coincide);
+
+  let mejor = -1, mejorPuntos = 0;
+  marcas.forEach((m, i) => {
+    if (!m) return;
+    const vistos = new Set();
+    for (let j = Math.max(0, i - CONTEXTO); j <= Math.min(palabras.length - 1, i + CONTEXTO); j++)
+      if (marcas[j]) vistos.add(limpia(palabras[j]));
+    if (vistos.size > mejorPuntos) { mejorPuntos = vistos.size; mejor = i; }
+  });
+
+  if (mejor < 0) return esc(palabras.slice(0, CONTEXTO * 2).join(" ")) + "…";
+  const ini = Math.max(0, mejor - CONTEXTO), fin = Math.min(palabras.length, mejor + CONTEXTO + 1);
+  const cuerpo = palabras.slice(ini, fin).map((p, k) =>
+    marcas[ini + k] ? `<strong>${esc(p)}</strong>` : esc(p)).join(" ");
+  return (ini ? "… " : "") + cuerpo + (fin < palabras.length ? " …" : "");
 }
 
-document.getElementById("q").addEventListener("input", e => {
-  const q = e.target.value.trim();
-  const out = document.getElementById("res");
-  if (q.length < 2 || !ms) { out.innerHTML = ""; return; }
-  const r = ms.search(q).slice(0, 50);
-  out.innerHTML = r.map(x => {
-    const f = fragmento(paginas[x.id].texto, Object.keys(x.match));
-    return `<p>${f}<br><a href="${x.url}" target="_blank">${x.url.split("/").slice(-4, -3)[0] || "ver página"}</a></p>`;
-  }).join("") || "<p>Sin resultados</p>";
-});
+function etiqueta(url) {
+  return url.split("/").slice(-4, -3)[0] || "Documento";
+}
+
+function pintar(desde, hasta) {
+  const html = resultados.slice(desde, hasta).map(x => {
+    const doc = porId.get(x.id) || {};
+    const url = x.url || doc.url || "";
+    const terminos = [...new Set([...Object.keys(x.match), ...terminosConsulta].map(limpia).filter(t => t.length > 1))];
+    const u = esc(url);
+    return `
+      <article class="resultado">
+        <a class="mini" href="${u}" target="_blank" rel="noopener" aria-label="Abrir imagen del documento">
+          <img src="${u}" alt="" loading="lazy" decoding="async"
+               onerror="this.parentNode.classList.add('sin-imagen');this.parentNode.textContent='Sin vista previa'">
+        </a>
+        <div>
+          <div class="fuente">${esc(decodeURIComponent(etiqueta(url)))}</div>
+          <p class="texto">${fragmento(doc.texto || "", terminos)}</p>
+          <a class="ver" href="${u}" target="_blank" rel="noopener">Ver documento original ↗</a>
+        </div>
+      </article>`;
+  }).join("");
+  $res.insertAdjacentHTML("beforeend", html);
+  mostrados = Math.min(hasta, resultados.length);
+  $mas.hidden = mostrados >= resultados.length;
+}
+
+function buscar() {
+  const q = $q.value.trim();
+  $borrar.classList.toggle("visible", q.length > 0);
+  const url = new URL(location);
+  q ? url.searchParams.set("q", q) : url.searchParams.delete("q");
+  history.replaceState(null, "", url);
+
+  if (q.length < 2 || !ms) {
+    $panel.hidden = true; $tarjetas.hidden = false; $res.innerHTML = "";
+    return;
+  }
+  terminosConsulta = q.split(/\s+/);
+  resultados = ms.search(q);
+  $tarjetas.hidden = true; $panel.hidden = false; $res.innerHTML = "";
+
+  if (!resultados.length) {
+    $estado.innerHTML = "";
+    $res.innerHTML = `<div class="vacio">No hay documentos que contengan todas esas palabras.
+      <em>Prueba con menos términos o con otra grafía del apellido.</em></div>`;
+    $mas.hidden = true;
+    return;
+  }
+  const n = resultados.length;
+  $estado.innerHTML = `<span><b>${n.toLocaleString("es-ES")}</b> ${n === 1 ? "documento encontrado" : "documentos encontrados"}</span><span>«${esc(q)}»</span>`;
+  pintar(0, POR_PAGINA);
+}
+
+let espera;
+$q.addEventListener("input", () => { clearTimeout(espera); espera = setTimeout(buscar, 180); });
+$q.addEventListener("keydown", e => { if (e.key === "Escape") { $q.value = ""; buscar(); } });
+$borrar.addEventListener("click", () => { $q.value = ""; buscar(); $q.focus(); });
+$mas.addEventListener("click", () => pintar(mostrados, mostrados + POR_PAGINA));
 </script>
+</body>
+</html>
