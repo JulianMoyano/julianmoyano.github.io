@@ -121,19 +121,7 @@
     font:500 .9rem var(--sans); color:var(--acento); cursor:pointer;
   }
   #mas:hover{background:var(--papel-2)}
-
-  /* ---------- Tarjetas "Saber más" / "El proyecto" ---------- */
-  .tarjetas{display:grid; grid-template-columns:1fr 1fr; gap:1.25rem}
-  .tarjeta{
-    text-align:left; cursor:pointer; border:0; font:inherit; color:inherit;
-    background:var(--papel); border-radius:4px; box-shadow:var(--sombra);
-    padding:1.6rem 1.6rem 1.4rem; border-top:3px solid var(--acento);
-    transition:transform .2s;
-  }
-  .tarjeta:hover, .tarjeta:focus-visible{transform:translateY(-2px); outline:none}
-  .tarjeta h2{font-family:var(--serif); font-weight:600; font-size:1.35rem; margin:0 0 .5rem}
-  .tarjeta p{margin:0 0 1rem; color:var(--tinta-2); font-size:.95rem}
-  .tarjeta span{font-size:.85rem; font-weight:600; color:var(--acento)}
+  #mas[hidden]{display:none}
 
   /* ---------- Diálogos ---------- */
   dialog{
@@ -164,7 +152,6 @@
     .portada{padding-top:2rem}
     .resultado{grid-template-columns:1fr; gap:.8rem; padding:1.1rem 1rem}
     .mini{width:100%; aspect-ratio:16/9}
-    .tarjetas{grid-template-columns:1fr}
     #estado{padding:.9rem 1rem}
     dialog .cab, dialog article{padding-left:1.1rem; padding-right:1.1rem}
   }
@@ -178,7 +165,7 @@
 
 <header class="top">
   <div class="marca">
-    <small>Archivos e Inteligencia Artiticial</small>
+    <small>Archivos e Inteligencia Artificial</small>
     Refugiados en Francia por la Guerra Civil Española
   </div>
   <nav class="top">
@@ -205,12 +192,9 @@
     <div id="res" aria-live="polite"></div>
     <button id="mas" type="button" hidden>Mostrar más resultados</button>
   </div>
-
-  
 </main>
 
 <footer>
-
   <button type="button" data-abrir="dlg-proyecto">Los datos: Fuentes + IA</button>
 </footer>
 
@@ -240,12 +224,12 @@
       <li>Puedes compartir una búsqueda copiando la dirección de la página.</li>
     </ul>
 <h3>Publicador</h3>
-  <p class="informative">Julián Moyano Collado . Trabajo con datos y archivos desde el 2003.  En <a href="https://es.linkedin.com/in/jmoyanoc" target="_blank">linkedin </a>, <a href="https://x.com/jmcollado" target="_blank"> X</a> ,  <a href="https://orcid.org/0009-0009-9698-1846" target="_blank">ORCID </a>, y en Zaragoza (Aragón - España)</p>
+  <p class="informative">Julián Moyano Collado . Trabajo con datos y archivos desde el 2003.  En <a href="https://es.linkedin.com/in/jmoyanoc" target="_blank">linkedin </a>, <a href="https://x.com/jmcollado" target="_blank"> X</a> ,  <a href="https://orcid.org/0009-0009-9698-1846" target="_blank">ORCID </a>, y en Zaragoza (Aragón - España)</p>
   
   <h3>Imágenes utilizadas</h3>
   <ul>
 <li class="informative">Arrivés des réfugiés républicains du camp d'Argelès-sur-Mer à celui du Barcarès Archivo:22NUM1PH2-24 Correspond à la photographie 27 Fi 124 du fonds Chauvin, Arrivée des soldats réfugiés au camp du Barcarès.jpg.<a href="https://es.wikipedia.org/wiki/La_retirada#/media/Archivo:22NUM1PH2-24_Correspond_%C3%A0_la_photographie_27_Fi_124_du_fonds_Chauvin,_Arriv%C3%A9e_des_soldats_r%C3%A9fugi%C3%A9s_au_camp_du_Barcar%C3%A8s.jpg" target="_blank">Wikipedia</a> CC BY-SA 4.0</li>
-<li class="informative">Habitations de fortune dans le camp de concentration d'Argelès-sur-Mer. <a href="https://upload.wikimedia.org/wikipedia/commons/8/85/22NUM1PH2-35_Habitations_de_fortune.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=index&amp;utm_content=original" target="_blank">Wikipedia</a> CC BY-SA 4.0</li>
+<li class="informative">Habitations de fortune dans le camp de concentration d'Argelès-sur-Mer. <a href="https://upload.wikimedia.org/wikipedia/commons/8/85/22NUM1PH2-35_Habitations_de_fortune.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=index&amp;utm_content=original" target="_blank">Wikipedia</a> CC BY-SA 4.0</li>
 <li class="informative">Documento familiar</li>
 </ul>
   
@@ -257,7 +241,7 @@
 <script>
 /* =========================================================
    1. FONDO ROTATORIO
-   Coloca las imágenes en la carpeta  img/fondos/  junto a
+   Coloca las imágenes en la carpeta  images/  junto a
    este index.html y añade aquí sus nombres.
    ========================================================= */
 const FONDOS = [
@@ -283,7 +267,7 @@ const FONDOS = [
 })();
 
 /* =========================================================
-   2. DIÁLOGOS "Saber más" y "El proyecto"
+   2. DIÁLOGOS
    ========================================================= */
 document.querySelectorAll("[data-abrir]").forEach(b =>
   b.addEventListener("click", () => document.getElementById(b.dataset.abrir).showModal()));
@@ -306,7 +290,6 @@ const $q = document.getElementById("q");
 const $res = document.getElementById("res");
 const $estado = document.getElementById("estado");
 const $panel = document.getElementById("panel-resultados");
-const $tarjetas = document.getElementById("tarjetas");
 const $mas = document.getElementById("mas");
 const $borrar = document.getElementById("borrar");
 
@@ -314,24 +297,38 @@ let ms, porId = new Map(), resultados = [], mostrados = 0, terminosConsulta = []
 
 $estado.textContent = "Cargando el archivo…";
 
-fetch("paginas.json").then(r => r.json()).then(data => {
-  data.forEach((p, i) => porId.set(p.id ?? i, p));
-  ms = new MiniSearch({
-    fields: ["texto"],
-    storeFields: ["url"],
-    processTerm: t => norm(t),
-    searchOptions: { prefix: true, fuzzy: 0.2, combineWith: "AND" }
-  });
-  ms.addAll(data);
-  $estado.textContent = "";
-  // Búsqueda compartida por URL (?q=...)
-  const inicial = new URLSearchParams(location.search).get("q");
-  if (inicial) { $q.value = inicial; buscar(); } else if ($q.value) buscar();
-}).catch(() => {
-  $panel.hidden = false;
-  $estado.textContent = "";
-  $res.innerHTML = `<div class="vacio">No se ha podido cargar el archivo de datos.</div>`;
-});
+fetch("paginas.json")
+  .then(r => {
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    return r.json();
+  })
+  .then(data => {
+    data.forEach((p, i) => porId.set(p.id ?? i, p));
+    ms = new MiniSearch({
+      fields: ["texto"],
+      storeFields: ["url"],
+      processTerm: t => norm(t),
+      searchOptions: { prefix: true, fuzzy: 0.2, combineWith: "AND" }
+    });
+    ms.addAll(data);
+    $estado.textContent = "";
+  })
+  .then(
+    () => {
+      // Datos cargados: búsqueda compartida por URL (?q=...) o texto ya escrito
+      const inicial = new URLSearchParams(location.search).get("q");
+      if (inicial) $q.value = inicial;
+      if ($q.value) buscar();
+    },
+    err => {
+      // Solo llega aquí si falla la carga o el índice, no la búsqueda
+      console.error("Error al cargar paginas.json:", err);
+      $panel.hidden = false;
+      $estado.textContent = "";
+      $mas.hidden = true;
+      $res.innerHTML = `<div class="vacio">No se ha podido cargar el archivo de datos.</div>`;
+    }
+  );
 
 /* Elige la ventana de texto con más términos distintos y pone en negrita las coincidencias */
 function fragmento(texto, terminos) {
@@ -353,10 +350,6 @@ function fragmento(texto, terminos) {
   const cuerpo = palabras.slice(ini, fin).map((p, k) =>
     marcas[ini + k] ? `<strong>${esc(p)}</strong>` : esc(p)).join(" ");
   return (ini ? "… " : "") + cuerpo + (fin < palabras.length ? " …" : "");
-}
-
-function etiqueta(url) {
-  return url.split("/").slice(-4, -3)[0] || "Documento";
 }
 
 function pintar(desde, hasta) {
@@ -390,13 +383,16 @@ function buscar() {
   q ? url.searchParams.set("q", q) : url.searchParams.delete("q");
   history.replaceState(null, "", url);
 
-  if (q.length < 2 || !ms) {
-    $panel.hidden = true; $tarjetas.hidden = false; $res.innerHTML = "";
+  if (!ms) return; // aún cargando: se buscará al terminar la carga
+
+  if (q.length < 2) {
+    $panel.hidden = true; $res.innerHTML = ""; $estado.innerHTML = ""; $mas.hidden = true;
     return;
   }
   terminosConsulta = q.split(/\s+/);
   resultados = ms.search(q);
-  $tarjetas.hidden = true; $panel.hidden = false; $res.innerHTML = "";
+  mostrados = 0;
+  $panel.hidden = false; $res.innerHTML = "";
 
   if (!resultados.length) {
     $estado.innerHTML = "";
