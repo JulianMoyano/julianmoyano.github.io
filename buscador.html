@@ -1,0 +1,43 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Buscador</title>
+<input id="q" placeholder="Buscar…" autofocus style="width:100%;font-size:1.2em;padding:.5em">
+<div id="res"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/minisearch@7.1.0/dist/umd/index.min.js"></script>
+<script>
+const N = 5; // palabras de contexto a cada lado
+const norm = s => s.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
+let ms, paginas;
+
+fetch("paginas.json").then(r => r.json()).then(data => {
+  paginas = data;
+  ms = new MiniSearch({
+    fields: ["texto"],
+    storeFields: ["url"],
+    processTerm: t => norm(t),
+    searchOptions: { prefix: true, fuzzy: 0.2, combineWith: "AND" }
+  });
+  ms.addAll(paginas);
+});
+
+function fragmento(texto, terminos) {
+  const palabras = texto.split(" ");
+  const ter = terminos.map(norm);
+  const i = palabras.findIndex(p => ter.some(t => norm(p).includes(t)));
+  if (i < 0) return palabras.slice(0, N * 2).join(" ") + "…";
+  const ini = Math.max(0, i - N), fin = i + N + 1;
+  return (ini ? "… " : "") + palabras.slice(ini, fin).join(" ") + (fin < palabras.length ? " …" : "");
+}
+
+document.getElementById("q").addEventListener("input", e => {
+  const q = e.target.value.trim();
+  const out = document.getElementById("res");
+  if (q.length < 2 || !ms) { out.innerHTML = ""; return; }
+  const r = ms.search(q).slice(0, 50);
+  out.innerHTML = r.map(x => {
+    const f = fragmento(paginas[x.id].texto, Object.keys(x.match));
+    return `<p>${f}<br><a href="${x.url}" target="_blank">${x.url.split("/").slice(-4, -3)[0] || "ver página"}</a></p>`;
+  }).join("") || "<p>Sin resultados</p>";
+});
+</script>
