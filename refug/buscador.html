@@ -31,7 +31,6 @@
     min-height:100vh;
   }
 
-  /* ---------- Fotos rotatorios refugiados guerra civil ---------- */
   #fondo{
     position:fixed; inset:0; z-index:-2;
     background-size:cover; background-position:center;
@@ -44,7 +43,6 @@
     background:linear-gradient(180deg, rgba(25,23,20,.72) 0%, rgba(25,23,20,.55) 40%, rgba(25,23,20,.82) 100%);
   }
 
-  /* ---------- Cabecera ---------- */
 header.top{
   display:flex; justify-content:flex-end; align-items:center; gap:1rem;
   max-width:960px; margin:0 auto; padding:1.25rem 16px;
@@ -59,7 +57,6 @@ header.top{
   }
   nav.top button:hover, nav.top button:focus-visible{border-bottom-color:#f1ede6; outline:none}
 
-  /* ---------- Portada ---------- */
   .portada{max-width:960px; margin:0 auto; padding:3.5rem 16px 2rem; color:#f6f3ee}
   .portada h1{
     font-family:var(--serif); font-weight:600; font-size:clamp(1.9rem, 4.5vw, 3rem);
@@ -83,7 +80,6 @@ header.top{
   #borrar.visible{display:block}
   .ayuda{font-size:.82rem; margin-top:.7rem; opacity:.8}
 
-  /* ---------- Zona de contenido ---------- */
   main{max-width:960px; margin:0 auto; padding:0 16px 4rem}
   .panel{background:var(--papel); border-radius:4px; box-shadow:var(--sombra)}
 
@@ -123,7 +119,6 @@ header.top{
   #mas:hover{background:var(--papel-2)}
   #mas[hidden]{display:none}
 
-  /* ---------- Diálogos ---------- */
   dialog{
     border:0; padding:0; border-radius:4px; max-width:720px; width:calc(100% - 32px);
     max-height:85vh; background:var(--papel); color:var(--tinta); box-shadow:0 20px 60px rgba(0,0,0,.4);
@@ -194,7 +189,6 @@ header.top{
   <!--button type="button" data-abrir="dlg-proyecto">Los datos: Archivos + IA</button>-->
 </footer>
 
-<!-- ============ Los datos: Archivos + IA ============ -->
 <dialog id="dlg-proyecto" aria-labelledby="t-proyecto">
   <div class="cab">
     <h2 id="t-proyecto">Los datos: Archivos + IA</h2>
