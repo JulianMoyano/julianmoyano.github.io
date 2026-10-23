@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Refugiados de la Guerra Civil española en Francia </title>
+<title>Refugiados de la Guerra Civil española en Francia. Destino francia 1939 </title>
 <meta name="description" content="Buscador de refugiados españoles de la Guerra Civil en Francia.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,7 +31,7 @@
     min-height:100vh;
   }
 
-  /* ---------- Fondo rotatorio ---------- */
+  /* ---------- Fotos rotatorios refugiados guerra civil ---------- */
   #fondo{
     position:fixed; inset:0; z-index:-2;
     background-size:cover; background-position:center;
@@ -194,9 +194,7 @@ header.top{
   <!--button type="button" data-abrir="dlg-proyecto">Los datos: Archivos + IA</button>-->
 </footer>
 
-
-
-<!-- ============ Diálogo: EL PROYECTO ============ -->
+<!-- ============ Los datos: Archivos + IA ============ -->
 <dialog id="dlg-proyecto" aria-labelledby="t-proyecto">
   <div class="cab">
     <h2 id="t-proyecto">Los datos: Archivos + IA</h2>
@@ -210,9 +208,9 @@ header.top{
 	    <p class="informative"><strong>"La Retirada"</strong> se produjo a principio de 1939, desbordando a los vecinos franceses que empezaron a sistematizar registros y censos de tantos españoles y refugiados a mediados de ese año. Muchas personas volvieron, se perdieron, fallecieron en ese periodo... jamás dejaron rastro en la documentación. También hay más documentación que no se ha integrado en este servicio o está repetidas desde otras webs.  Veasé otras fuentes como: ... </p> 
   <h3>Imágenes utilizadas</h3>
 	  <ul>
-<li>Arrivés des réfugiés républicains du camp d'Argelès-sur-Mer à celui du Barcarès. Archivo:22NUM1PH2-24 Correspond à la photographie 27 Fi 124 du fonds Chauvin, Arrivée des soldats réfugiés au camp du Barcarès.jpg.<a href="https://es.wikipedia.org/wiki/La_retirada#/media/Archivo:22NUM1PH2-24_Correspond_%C3%A0_la_photographie_27_Fi_124_du_fonds_Chauvin,_Arriv%C3%A9e_des_soldats_r%C3%A9fugi%C3%A9s_au_camp_du_Barcar%C3%A8s.jpg" target="_blank">Wikipedia</a> CC BY-SA 4.0</li>
+<li>Arrivés des réfugiés républicains du camp d'Argelès-sur-Mer à celui du Barcarès. Fonds Chauvin. <a href="https://es.wikipedia.org/wiki/La_retirada#/media/Archivo:22NUM1PH2-24_Correspond_%C3%A0_la_photographie_27_Fi_124_du_fonds_Chauvin,_Arriv%C3%A9e_des_soldats_r%C3%A9fugi%C3%A9s_au_camp_du_Barcar%C3%A8s.jpg" target="_blank">Wikipedia</a> CC BY-SA 4.0</li>
 <li>Habitations de fortune dans le camp de concentration d'Argelès-sur-Mer. <a href="https://upload.wikimedia.org/wikipedia/commons/8/85/22NUM1PH2-35_Habitations_de_fortune.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=index&amp;utm_content=original" target="_blank">Wikipedia</a> CC BY-SA 4.0</li>
-<li>Documento familiar</li>
+<li>Documentación familiar</li>
 </ul>
 
 <h3>Servido por</h3>
@@ -223,11 +221,6 @@ header.top{
 
 <script src="https://cdn.jsdelivr.net/npm/minisearch@7.1.0/dist/umd/index.min.js"></script>
 <script>
-/* =========================================================
-   1. FONDO ROTATORIO
-   Coloca las imágenes en la carpeta  images/  junto a
-   este index.html y añade aquí sus nombres.
-   ========================================================= */
 const FONDOS = [
   "images/01.jpg",
   "images/02.jpg",
@@ -250,9 +243,6 @@ const FONDOS = [
   img.src = FONDOS[i];
 })();
 
-/* =========================================================
-   2. DIÁLOGOS
-   ========================================================= */
 document.querySelectorAll("[data-abrir]").forEach(b =>
   b.addEventListener("click", () => document.getElementById(b.dataset.abrir).showModal()));
 document.querySelectorAll("dialog").forEach(d => {
