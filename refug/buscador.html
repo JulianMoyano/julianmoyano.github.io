@@ -173,7 +173,7 @@ header.top{
     <input id="q" type="search" placeholder="Busca apellidos, nombres, recuerdos…" autocomplete="off" autofocus aria-label="Buscar">
     <button id="borrar" type="button" aria-label="Borrar búsqueda">×</button>
   </div>
-  <p class="ayuda">No importan tildes ni mayúsculas. Admite palabras incompletas y algunas erratas.</p>
+  <p class="ayuda">No importan tildes ni mayúsculas. Admite palabras incompletas y pequeñas erratas.</p>
 </section>
 
 <main>
@@ -186,7 +186,6 @@ header.top{
 </main>
 
 <footer>
-  <!--button type="button" data-abrir="dlg-proyecto">Los datos: Archivos + IA</button>-->
 </footer>
 
 <dialog id="dlg-proyecto" aria-labelledby="t-proyecto">
@@ -198,7 +197,7 @@ header.top{
    <h2>Cómo se ha hecho</h2>
     <p>Datos obtenidos utilizando procesos de <strong>Inteligencia Artificial</strong> en consultas a los Archivos Nacionales de Francia. Para ello se ha empleado en local: Ollama + Deepseek + Tesseract + Claude. (<strong>¡También trabajo manual y artesano!</strong>).  <p> Este servicio tiene abundantes errores desde OCR impreciso, duplicidad de datos a inconsistencia del texto manuscrito, pero es una iniciativa independiente que quiere dar pistas sobre personas y hechos. </p> El servicio es una <strong>investigación altruista destinada a la divulgación histórica</strong> que utiliza las infraestructuras de los archivos franceses y reaprovecha el trabajo de <strong>sus profesionales</strong> ¡Merci! 
     <h2>Archivo consultado</h2>
-   <p> Se han analizado casi <strong>32.000 páginas</strong> pertenecientes a la Dirección de Policía Territorial y Extranjera de Francia relativas a refugiados de la Guerra Civil Española (1935-1940). La documentación se encuentra <a href="https://www.siv.archives-nationales.culture.gouv.fr/siv/rechercheconsultation/consultation/ir/consultationIR.action?consIr=&amp;frontIr=&amp;optionFullText=ET&amp;fullText=r%C3%A9fugi%C3%A9s+espagnols&amp;defaultResultPerPage=15&amp;irId=FRAN_IR_059752&amp;formCaller=&amp;gotoArchivesNums=true&amp;auSeinIR=true&amp;details=false&amp;page=1&amp;udId=" target="_blank">en la web de los Archivos Nacionales Franceses</a>. <p>Los documentos son públicos, pero sus datos no son encontrables. De ahí el interés de este servicio:<strong> transformar documentos en datos consultables que ayunden en la búsqueda de personas.</strong> <p> </p> 
+   <p> Se han analizado casi <strong>32.000 páginas</strong> pertenecientes a la Dirección de Policía Territorial y Extranjera de Francia relativas a refugiados de la Guerra Civil Española (1935-1940). La documentación se encuentra <a href="https://www.siv.archives-nationales.culture.gouv.fr/siv/rechercheconsultation/consultation/ir/consultationIR.action?consIr=&amp;frontIr=&amp;optionFullText=ET&amp;fullText=r%C3%A9fugi%C3%A9s+espagnols&amp;defaultResultPerPage=15&amp;irId=FRAN_IR_059752&amp;formCaller=&amp;gotoArchivesNums=true&amp;auSeinIR=true&amp;details=false&amp;page=1&amp;udId=" target="_blank">en la web de los Archivos Nacionales Franceses</a>. <p>Los documentos sont públicos, pero sus datos no son encontrables. De ahí el interés de este servicio:<strong> transformar documentos en datos consultables que ayunden en la búsqueda de personas.</strong> <p> </p> 
 	  <p><strong>La gran retirada a Francia</strong> comenzó a principios de 1939 desbordando a las autoridades francesas, que no comenzaron a hacer registros exhaustivos hasta mediados de ese año. Por ello, muchas personas que regresaron, se desplazaron o fallecieron en ese intervalo no dejaron rastro en ningún documento. Puedes consultar otras fuentes documentales relacionadas como <a href="https://archivesdepartementales.aude.fr/les-archives-des-camps" target="_blank"> Les Archives de Camps</a> o <a href="https://www.cultura.gob.es/cultura/areas/archivos/mc/centros/cida/4-difusion-cooperacion/4-1-guias-de-lectura/guia-exilio-espanol-1939-archivos-estatales.html" target="_blank"> Guía del Exilio español de 1939 en los Archivos Estatales</a> </p> 
   <h2>Imágenes re-utilizadas</h2>
 	  <ul>
@@ -208,12 +207,11 @@ header.top{
 </ul>
 
 <h3>Servido por</h3>
-  <p class="informative"><strong>Julián Moyano C.</strong>, desde 2003 trabajo con datos y Archivos.  Más en <a href="https://es.linkedin.com/in/jmoyanoc" target="_blank">linkedin </a>. <a href="mailto:julianmoyanoc@gmail.com">Mail de contacto</a> </p>  
+  <p class="informative"><strong>Julián Moyano C.</strong>, desde 2003 trabajo con datos y Archivos.  Más en <a href="https://es.linkedin.com/in/jmoyanoc" target="_blank">linkedin </a>. <a href="mailto:julianmoyanoc@gmail.com">Mail de contacto</a> </p>  
    
   </article>
 </dialog>
 
-<script src="https://cdn.jsdelivr.net/npm/minisearch@7.1.0/dist/umd/index.min.js"></script>
 <script>
 const FONDOS = [
   "images/01.jpg",
@@ -226,7 +224,7 @@ const FONDOS = [
   let anterior = -1;
   try { anterior = Number(localStorage.getItem("fondoAnterior") ?? -1); } catch(e){}
   let i = Math.floor(Math.random() * FONDOS.length);
-  if (FONDOS.length > 1 && i === anterior) i = (i + 1) % FONDOS.length; // no repetir la misma seguida
+  if (FONDOS.length > 1 && i === anterior) i = (i + 1) % FONDOS.length;
   try { localStorage.setItem("fondoAnterior", i); } catch(e){}
   const img = new Image();
   img.onload = () => {
@@ -241,18 +239,14 @@ document.querySelectorAll("[data-abrir]").forEach(b =>
   b.addEventListener("click", () => document.getElementById(b.dataset.abrir).showModal()));
 document.querySelectorAll("dialog").forEach(d => {
   d.querySelector(".cerrar").addEventListener("click", () => d.close());
-  d.addEventListener("click", e => { if (e.target === d) d.close(); }); // clic fuera = cerrar
+  d.addEventListener("click", e => { if (e.target === d) d.close(); });
 });
 
 /* =========================================================
-   3. BUSCADOR
+   3. BUSCADOR 
    ========================================================= */
-const CONTEXTO = 12;      // palabras de contexto a cada lado
-const POR_PAGINA = 20;    // resultados por tanda
-
-const norm = s => s.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
-const limpia = s => norm(s).replace(/[^\p{L}\p{N}]/gu, "");
-const esc = s => s.replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const POR_PAGINA = 20;
+const esc = s => (s ? s.replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])) : "");
 
 const $q = document.getElementById("q");
 const $res = document.getElementById("res");
@@ -261,72 +255,106 @@ const $panel = document.getElementById("panel-resultados");
 const $mas = document.getElementById("mas");
 const $borrar = document.getElementById("borrar");
 
-let ms, porId = new Map(), resultados = [], mostrados = 0, terminosConsulta = [];
+let resultadosGlobales = [], mostrados = 0;
 
-$estado.textContent = "Cargando el archivo…";
+/* ---------- Fragmento con contexto, negrita y tolerancia a erratas ---------- */
+const CONTEXTO = 15; // palabras de contexto a cada lado de los términos encontrados
 
-fetch("paginas.json")
-  .then(r => {
-    if (!r.ok) throw new Error("HTTP " + r.status);
-    return r.json();
-  })
-  .then(data => {
-    data.forEach((p, i) => porId.set(p.id ?? i, p));
-    ms = new MiniSearch({
-      fields: ["texto"],
-      storeFields: ["url"],
-      processTerm: t => norm(t),
-      searchOptions: { prefix: true, fuzzy: 0.2, combineWith: "AND" }
-    });
-    ms.addAll(data);
-    $estado.textContent = "";
-  })
-  .then(
-    () => {
-      // Datos cargados: búsqueda compartida por URL (?q=...) o texto ya escrito
-      const inicial = new URLSearchParams(location.search).get("q");
-      if (inicial) $q.value = inicial;
-      if ($q.value) buscar();
-    },
-    err => {
-      // Solo llega aquí si falla la carga o el índice, no la búsqueda
-      console.error("Error al cargar paginas.json:", err);
-      $panel.hidden = false;
-      $estado.textContent = "";
-      $mas.hidden = true;
-      $res.innerHTML = `<div class="vacio">No se ha podido cargar el archivo de datos.</div>`;
+// Quita tildes, pasa a minúsculas y elimina signos (típicos del OCR)
+const normS = s => s.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase().replace(/[^\p{L}\p{N}]/gu, "");
+
+// Distancia de edición (Damerau-Levenshtein) con corte anticipado: sustituciones, omisiones, adiciones y transposiciones
+function distancia(a, b, max) {
+  if (Math.abs(a.length - b.length) > max) return max + 1;
+  const la = a.length, lb = b.length;
+  let prev2 = null, prev = Array.from({ length: lb + 1 }, (_, j) => j), cur;
+  for (let i = 1; i <= la; i++) {
+    cur = [i]; let min = i;
+    for (let j = 1; j <= lb; j++) {
+      const c = a[i - 1] === b[j - 1] ? 0 : 1;
+      let v = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + c);
+      if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) v = Math.min(v, prev2[j - 2] + 1);
+      cur[j] = v; if (v < min) min = v;
     }
-  );
+    if (min > max) return max + 1;
+    prev2 = prev; prev = cur;
+  }
+  return prev[lb];
+}
 
-/* Elige la ventana de texto con más términos distintos y pone en negrita las coincidencias */
+// Erratas toleradas según la longitud del término buscado
+const tolerancia = n => (n <= 3 ? 1 : n <= 6 ? 2 : 3);
+
+// Peso de coincidencia entre una palabra del texto y un término buscado (0 = no coincide)
+function peso(w, t) {
+  if (!w || !t) return 0;
+  if (t.length < 3) return w === t ? 3 : 0;
+  if (w.includes(t)) return 3;                                   // exacta o palabra incompleta
+  const tol = tolerancia(t.length);
+  if (!tol) return 0;
+  if (distancia(w, t, tol) <= tol) return 2;                     // errata en la palabra completa
+  if (t.length >= 4 && w.length > t.length &&
+      distancia(w.slice(0, t.length), t, tol) <= tol) return 1;  // errata + palabra incompleta
+  return 0;
+}
+
 function fragmento(texto, terminos) {
-  const palabras = texto.split(/\s+/);
-  const coincide = p => { const w = limpia(p); return w && terminos.some(t => w.includes(t)); };
-  const marcas = palabras.map(coincide);
+  if (!texto) return "";
+  const palabras = texto.split(/\s+/).filter(Boolean);
+  const ts = [...new Set(terminos.map(normS).filter(Boolean))];
 
-  let mejor = -1, mejorPuntos = 0;
-  marcas.forEach((m, i) => {
-    if (!m) return;
-    const vistos = new Set();
-    for (let j = Math.max(0, i - CONTEXTO); j <= Math.min(palabras.length - 1, i + CONTEXTO); j++)
-      if (marcas[j]) vistos.add(limpia(palabras[j]));
-    if (vistos.size > mejorPuntos) { mejorPuntos = vistos.size; mejor = i; }
+  // Para cada palabra: qué término buscado le corresponde y con qué peso
+  const info = palabras.map(p => {
+    const w = normS(p);
+    let mejor = null;
+    ts.forEach((t, k) => {
+      const pz = peso(w, t);
+      if (pz && (!mejor || pz > mejor.pz)) mejor = { k, pz };
+    });
+    return mejor;
   });
 
-  if (mejor < 0) return esc(palabras.slice(0, CONTEXTO * 2).join(" ")) + "…";
-  const ini = Math.max(0, mejor - CONTEXTO), fin = Math.min(palabras.length, mejor + CONTEXTO + 1);
+  // Ventana con más términos distintos coincidentes (a igualdad, la de coincidencias más exactas)
+  let centro = -1, mejorPuntos = 0;
+  info.forEach((m, i) => {
+    if (!m) return;
+    const porTermino = new Map();
+    for (let j = Math.max(0, i - CONTEXTO); j <= Math.min(palabras.length - 1, i + CONTEXTO); j++) {
+      const x = info[j];
+      if (x && (porTermino.get(x.k) || 0) < x.pz) porTermino.set(x.k, x.pz);
+    }
+    const puntos = porTermino.size * 10 + [...porTermino.values()].reduce((a, b) => a + b, 0);
+    if (puntos > mejorPuntos) { mejorPuntos = puntos; centro = i; }
+  });
+
+  if (centro < 0) return esc(palabras.slice(0, CONTEXTO * 2).join(" ")) + "…";
+
+  // Centrar la ventana en el conjunto de coincidencias que contiene
+  let primero = centro, ultimo = centro;
+  for (let j = Math.max(0, centro - CONTEXTO); j <= Math.min(palabras.length - 1, centro + CONTEXTO); j++)
+    if (info[j]) { primero = Math.min(primero, j); ultimo = Math.max(ultimo, j); }
+  const medio = Math.round((primero + ultimo) / 2);
+  const ini = Math.max(0, medio - CONTEXTO);
+  const fin = Math.min(palabras.length, medio + CONTEXTO + 1);
+
   const cuerpo = palabras.slice(ini, fin).map((p, k) =>
-    marcas[ini + k] ? `<strong>${esc(p)}</strong>` : esc(p)).join(" ");
+    info[ini + k] ? `<strong>${esc(p)}</strong>` : esc(p)
+  ).join(" ");
+
   return (ini ? "… " : "") + cuerpo + (fin < palabras.length ? " …" : "");
 }
 
 function pintar(desde, hasta) {
-  const html = resultados.slice(desde, hasta).map(x => {
-    const doc = porId.get(x.id) || {};
-    const url = x.url || doc.url || "";
-    const terminos = [...new Set([...Object.keys(x.match), ...terminosConsulta].map(limpia).filter(t => t.length > 1))];
+  const terminosBusqueda = $q.value.trim().split(/\s+/);
+
+  const html = resultadosGlobales.slice(desde, hasta).map(x => {
+    const url = x.url || ""; 
+    const textoOcr = x.texto || "";
     const u = esc(url);
-	const uImg = esc(url.replace("_L-medium.jpg", "_L/TileGroup0/2-1-1.jpg"));
+    const uImg = esc(url.replace("_L-medium.jpg", "_L/TileGroup0/2-1-1.jpg"));
+    
+    const textoResaltado = fragmento(textoOcr, terminosBusqueda);
+
     return `
       <article class="resultado">
         <a class="mini" href="${u}" target="_blank" rel="noopener" aria-label="Abrir imagen del documento">
@@ -335,51 +363,77 @@ function pintar(desde, hasta) {
         </a>
         <div>
           <div class="fuente">Intérieur. Direction générale de la Sûreté nationale (Francia)</div>
-          <p class="texto">${fragmento(doc.texto || "", terminos)}</p>
+          <p class="texto">${textoResaltado}</p>
           <a class="ver" href="${u}" target="_blank" rel="noopener">Ver documento original ↗</a>
         </div>
       </article>`;
   }).join("");
+  
   $res.insertAdjacentHTML("beforeend", html);
-  mostrados = Math.min(hasta, resultados.length);
-  $mas.hidden = mostrados >= resultados.length;
+  mostrados = Math.min(hasta, resultadosGlobales.length);
+  $mas.hidden = mostrados >= resultadosGlobales.length;
 }
 
-function buscar() {
+async function buscar() {
   const q = $q.value.trim();
   $borrar.classList.toggle("visible", q.length > 0);
   const url = new URL(location);
   q ? url.searchParams.set("q", q) : url.searchParams.delete("q");
   history.replaceState(null, "", url);
 
-  if (!ms) return; // aún cargando: se buscará al terminar la carga
-
   if (q.length < 2) {
     $panel.hidden = true; $res.innerHTML = ""; $estado.innerHTML = ""; $mas.hidden = true;
     return;
   }
-  terminosConsulta = q.split(/\s+/);
-  resultados = ms.search(q);
-  mostrados = 0;
-  $panel.hidden = false; $res.innerHTML = "";
 
-  if (!resultados.length) {
+  $estado.textContent = "Buscando en la nube...";
+  $panel.hidden = false;
+
+  try {
+    const workerUrl = `https://mi-buscador.francia1939db.workers.dev/?q=${encodeURIComponent(q)}`;
+    
+    const respuesta = await fetch(workerUrl);
+    if (!respuesta.ok) throw new Error("Error en la consulta");
+    
+    resultadosGlobales = await respuesta.json();
+    mostrados = 0;
+    $res.innerHTML = "";
+
+    if (!resultadosGlobales.length) {
+      $estado.innerHTML = "";
+      $res.innerHTML = `<div class="vacio">No hay documentos que coincidan con esa búsqueda.
+        <em>Prueba con menos términos o con otra grafía.</em></div>`;
+      $mas.hidden = true;
+      return;
+    }
+
+    const n = resultadosGlobales.length;
+    $estado.innerHTML = `<span><b>${n.toLocaleString("es-ES")}</b> ${n === 1 ? "resultado encontrado" : "resultados encontrados"}</span><span>«${esc(q)}»</span>`;
+    pintar(0, POR_PAGINA);
+
+  } catch (err) {
+    console.error("Error:", err);
     $estado.innerHTML = "";
-    $res.innerHTML = `<div class="vacio">No hay documentos que contengan todas esas palabras.
-      <em>Prueba con menos términos o con otra grafía del apellido.</em></div>`;
+    $res.innerHTML = `<div class="vacio">Hubo un error al realizar la búsqueda.</div>`;
     $mas.hidden = true;
-    return;
   }
-  const n = resultados.length;
-  $estado.innerHTML = `<span><b>${n.toLocaleString("es-ES")}</b> ${n === 1 ? "documento encontrado" : "documentos encontrados"}</span><span>«${esc(q)}»</span>`;
-  pintar(0, POR_PAGINA);
 }
 
+// Eventos que hacían falta para que funcione el buscador al escribir o hacer clic
 let espera;
-$q.addEventListener("input", () => { clearTimeout(espera); espera = setTimeout(buscar, 180); });
+$q.addEventListener("input", () => { clearTimeout(espera); espera = setTimeout(buscar, 300); });
 $q.addEventListener("keydown", e => { if (e.key === "Escape") { $q.value = ""; buscar(); } });
 $borrar.addEventListener("click", () => { $q.value = ""; buscar(); $q.focus(); });
 $mas.addEventListener("click", () => pintar(mostrados, mostrados + POR_PAGINA));
+
+// Comprobación si la página se carga con un parámetro ?q=... en la URL
+window.addEventListener("DOMContentLoaded", () => {
+  const inicial = new URLSearchParams(location.search).get("q");
+  if (inicial) {
+    $q.value = inicial;
+    buscar();
+  }
+});
 </script>
 </body>
 </html>
