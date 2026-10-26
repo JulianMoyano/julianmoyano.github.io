@@ -429,8 +429,8 @@ function pintarEstado(hayCompletos, parciales) {
   }
 
   if (n > UMBRAL_AVISO || totalServidor > todos.length) {
-    h += `<div class="aviso"><b>Hay muchos resultados.</b> Introduzca más palabras ` +
-         `(otro nombre, apellido, un lugar, una año…) </div>`;
+    h += `<div class="aviso"><b>Se muestran los primeros 40 resultados.</b> Añade algún dato más (apellido, municipio o año) para acotar la búsqueda.` +
+         `</div>`;
   }
   $estado.innerHTML = h;
 }
