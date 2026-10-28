@@ -220,6 +220,7 @@ footer button{background:none; border:0; color:inherit; text-decoration:underlin
 </main>
 
 <footer>
+<p class="ayuda"></i>Libre de cookies de rastreo</i></p>
 </footer>
 
 <dialog id="dlg-proyecto" aria-labelledby="t-proyecto">
@@ -228,12 +229,12 @@ footer button{background:none; border:0; color:inherit; text-decoration:underlin
     <button class="cerrar" type="button" aria-label="Cerrar">×</button>
   </div>
  <article>
-   <p> <strong>"Destino Francia 1939"</strong> ha analizado casi <strong>32.000 páginas</strong> pertenecientes a la Dirección de Policía Territorial y Extranjera de Francia relativas a refugiados de la Guerra Civil Española (1935-1940) de los Archivos Nacionales de Francia. No solo se ofrecen datos de refugiados españoles, también de otras nacionalidades (brigadistas internacionales). Toda la documentación se encuentra <a href="https://www.siv.archives-nationales.culture.gouv.fr/siv/rechercheconsultation/consultation/ir/consultationIR.action?irId=FRAN_IR_059752&details=false&gotoArchivesNums=false&udId=root&auSeinIR=true" target="_blank">en su web</a>.</p>	  
-   <p> <strong>"Destino Francia 1939"</strong> se nutre de los Archivos Nacionales de Francia y re-utiliza el trabajo de <strong>sus profesionales</strong> <i>¡Merci! </i> </p>
-	  <p>La gran retirada a Francia comenzó a principios de 1939 desbordando a las autoridades francesas, que no comenzaron a hacer registros exhaustivos hasta mediados de ese año. Por ello, muchas personas que regresaron, se desplazaron o fallecieron en ese intervalo no dejaron rastro en ningún documento. <strong>"Destino Francia 1939" es una muestra más de documentos de ese periodo</strong>. Puedes consultar otras fuentes documentales relacionadas como <a href="https://archivesdepartementales.aude.fr/les-archives-des-camps" target="_blank"> Les Archives de Camps</a>, <a href="https://www.cultura.gob.es/cultura/areas/archivos/mc/centros/cida/4-difusion-cooperacion/4-1-guias-de-lectura/guia-exilio-espanol-1939-archivos-estatales.html" target="_blank"> Guía del Exilio español de 1939 en los Archivos Estatales</a> o <a href="https://archives.ofpra.gouv.fr/archive/recherche/espagnol" target="_blank">Fichier espagnol de la (OCRE)</a> </p> 
+   <p> <strong>"Destino Francia 1939"</strong> analiza casi <strong>32.000 páginas</strong> pertenecientes a la Dirección de Policía Territorial y Extranjera de Francia relativas a refugiados de la Guerra Civil Española (1935-1940) de los Archivos Nacionales de Francia. No solo se ofrecen datos de refugiados españoles, también de otras nacionalidades (brigadistas internacionales). Toda la documentación se encuentra <a href="https://www.siv.archives-nationales.culture.gouv.fr/siv/rechercheconsultation/consultation/ir/consultationIR.action?irId=FRAN_IR_059752&details=false&gotoArchivesNums=false&udId=root&auSeinIR=true" target="_blank">en su web</a>.</p>	  
+   	  <p>La gran retirada a Francia comenzó a principios de 1939 desbordando a las autoridades francesas, que no comenzaron a hacer registros exhaustivos hasta mediados de ese año. Por ello, muchas personas que regresaron, se desplazaron o fallecieron en ese intervalo no dejaron rastro en ningún documento. <strong>"Destino Francia 1939" es una muestra más de documentos de ese periodo</strong>. Puedes consultar otras fuentes documentales relacionadas como <a href="https://www.ledepartement66.fr/les-ressources-sur-les-camps-dinternement/" target="_blank"> Les ressources sur les camps d’internement</a>, <a href="https://archivesdepartementales.aude.fr/les-archives-des-camps" target="_blank"> Les Archives de Camps</a>, <a href="https://www.cultura.gob.es/cultura/areas/archivos/mc/centros/cida/4-difusion-cooperacion/4-1-guias-de-lectura/guia-exilio-espanol-1939-archivos-estatales.html" target="_blank"> Guía del Exilio español de 1939 en los Archivos Estatales</a> o <a href="https://archives.ofpra.gouv.fr/archive/recherche/espagnol" target="_blank">Fichier espagnol de la (OCRE)</a> </p> 
+<p> <strong>"Destino Francia 1939"</strong> se nutre de los Archivos Nacionales de Francia y re-utiliza el trabajo de <strong>sus profesionales</strong> <i>¡Merci! </i> </p>
 	  
    <h2>Cómo se ha hecho</h2>
-    	<p><strong>"Destino Francia 1939"</strong> transforma documentación histórica en datos consultables utilizando aplicaciones de <strong>inteligencia artificial</strong>, procesamiento de imágenes y textos. Se han combinado herramientas como Ollama, DeepSeek, Tesseract y Claude, junto con trabajo limitado manual de revisión y tratamiento de la información. La infraestructura que ves se asienta en GitHub y Cloudflare.</p>
+	 <p><strong>"Destino Francia 1939"</strong>transforma documentación histórica de libre acceso en datos consultables utilizando aplicaciones de <strong>inteligencia artificial</strong>, procesamiento de imágenes y textos. Se han ajustado herramientas como Ollama, DeepSeek, Tesseract y Claude hasta llegar a resultados coherentes, junto con un trabajo manual de revisión y tratamiento de la información. Las tablas mecanografiadas y las divagaciones/alucinaciones de los modelos han sido un desafío. La infraestructura que ves está en GitHub y Cloudflare.</p>
   <p> Este servicio tiene <strong>abundantes errores</strong> como OCR impreciso, duplicidad de datos o inconsistencia del texto manuscrito. Es una iniciativa independiente destinada a la divulgación histórica que quiere dar más pistas sobre personas, sucesos y hechos. </p> 
    <p>Los documentos son públicos, pero sus datos no son encontrables. De ahí el interés de este servicio:<strong> transformar documentos en datos que ayuden a la búsqueda de personas.</strong></p>
     
@@ -429,7 +430,7 @@ function pintarEstado(hayCompletos, parciales) {
   }
 
   if (n > UMBRAL_AVISO || totalServidor > todos.length) {
-    h += `<div class="aviso"><b>Se muestran los primeros 40 resultados.</b> Añade algún apellido, lugar, año...más para acotar la búsqueda.` +
+    h += `<div class="aviso"><b>Búsqueda demasiado amplia.</b> Se muestran solo 40 resultados. Añada algún apellido, lugar, recuerdo...más.` +
          `</div>`;
   }
   $estado.innerHTML = h;
@@ -449,7 +450,7 @@ function pintar(desde, hasta) {
                onerror="this.parentNode.classList.add('sin-imagen');this.parentNode.textContent='Sin vista previa'">
         </a>
         <div>
-          <div class="fuente1">Intérieur. Direction générale de la Sûreté nationale (Francia)</div>
+          <div class="fuente1">Direction générale de la Sûreté nationale (Francia) </div>
           <p class="texto">${fragmento(x._a)}</p>
           <a class="fuente" href="${u}" target="_blank" rel="noopener">Ver documento original ↗</a>
         </div>
