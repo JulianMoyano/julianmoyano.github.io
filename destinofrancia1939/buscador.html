@@ -235,11 +235,14 @@ footer button{background:none; border:0; color:inherit; text-decoration:underlin
 
 	  
    <h2>Cómo se ha hecho</h2>
-	 <p><strong>"Destino Francia 1939"</strong> transforma documentación histórica de libre acceso en datos consultables utilizando aplicaciones de <strong>inteligencia artificial</strong>, reconocimiento de imágenes y textos. Se han ajustado herramientas como Ollama, DeepSeek, Tesseract y Claude hasta llegar a resultados coherentes. Las tablas mecanografiadas y las divagaciones/alucinaciones de los modelos han sido un desafío.  </p> <p>También se ha realizado <strong>trabajo manual muy limitado</strong> de revisión y tratamiento de la información.  La infraestructura que ves se aloja en GitHub y Cloudflare, no usa cookies de rastreo, ni de analítica, ni de publicidad. Tampoco se permite el uso para la indexación por buscadores comerciales.</p>
-  <p>Este servicio tiene <strong>abundantes errores</strong> como OCR impreciso, duplicidad de datos o inconsistencia del texto manuscrito. Es una iniciativa independiente destinada a la divulgación histórica que quiere dar más pistas sobre personas, sucesos y hechos. </p> 
- <p class="informative"><strong>"Destino Francia 1939"</strong> se ha diseñado desde la buena fe con fines exclusivamente de investigación para facilitar la búsqueda sobre documentos de acceso público de ese periodo mediante el procesamiento de imágenes.</p>
-	 El procesamiento se limita a la extracción técnica de texto para facilitar las búsquedas: no elabora perfiles, no etiqueta ni identifica personas y no toma decisiones automatizadas de ningún tipo sobre la información capturada. <strong>La extracción automatizada de texto busca únicamente hacer accesible el patrimonio documental histórico de esos años</strong>, y en ningún caso categorizar o clasificar los datos obtenidos de ninguna forma.</p> 
-<p> Probablemente, por el periodo de la documentación, la mayoría de las personas que aparecen habrán fallecido, si cualquier usuario quiere contactar para rectificar,  consultar, o borrar algún texto, puede escribir a <a href="mailto:destinofrancia1939@gmail.com">este correo</a> para su revisión.</p> 
+	 <p><strong>"Destino Francia 1939"</strong> transforma documentación histórica de libre acceso en datos consultables utilizando aplicaciones en entorno local de <strong>inteligencia artificial</strong>, reconocimiento de imágenes y textos. Se han ajustado herramientas como Ollama o Tesseract hasta llegar a resultados coherentes. Las tablas mecanografiadas y las divagaciones/alucinaciones de los modelos empleados han sido un desafío.  </p> 
+	 <p>También se ha realizado <strong>trabajo manual muy limitado</strong> de revisión y tratamiento de la información. Este servicio también tiene <strong>abundantes errores</strong> como OCR impreciso, duplicidad de texto o inconsistencia de letras manuscritas. Es una iniciativa independiente destinada a la divulgación histórica que quiere dar más pistas sobre personas, sucesos y hechos. </p> 
+<p>
+	 La infraestructura que ves se aloja en GitHub y Cloudflare, no usa cookies de rastreo, ni de analítica, ni de publicidad. Tampoco se permite el uso para la indexación por buscadores comerciales. Más detalles en  el apartado de <strong><i>Datos personales, privacidad y tecnología</i></strong>
+</p>
+ 
+ 
+
     
 
    <h2>Otras fuentes relacionadas</h2>
@@ -247,6 +250,7 @@ footer button{background:none; border:0; color:inherit; text-decoration:underlin
 <li> <a href="https://www.ledepartement66.fr/les-ressources-sur-les-camps-dinternement/" target="_blank"> Les ressources sur les camps d’internement</a></li>
 <li> <a href="https://archivesdepartementales.aude.fr/les-archives-des-camps" target="_blank"> Les Archives de Camps</a></li> 
 <li><a href="https://www.cultura.gob.es/cultura/areas/archivos/mc/centros/cida/4-difusion-cooperacion/4-1-guias-de-lectura/guia-exilio-espanol-1939-archivos-estatales.html" target="_blank"> Guía del Exilio español de 1939 en los Archivos Estatales</a> </li> 
+<li><a href="https://ihr.world/es/" target="_blank">Datos referenciados Guerra Civil y franquismo (IHR)</a></li> 
 <li><a href="https://archives.ofpra.gouv.fr/archive/recherche/espagnol" target="_blank">Fichier espagnol de l'Ofpra</a></li> 
 </ul></p>
    
@@ -258,6 +262,38 @@ footer button{background:none; border:0; color:inherit; text-decoration:underlin
 
 <h3>Un <i>side project</i> servido por</h3>
   <p class="informative"><strong>Julián Moyano C. </strong>Trabajo con datos y Archivos desde 2003. <a href="mailto:destinofrancia1939@gmail.com">Mail de contacto</a> </p>  
+  
+  
+ <h2>Datos personales, privacidad y tecnología</h2>
+
+   <h3>1. Finalidad y tratamiento de los datos</h3>
+  <p>"Destino Francia 1939" es una iniciativa independiente de investigación y divulgación histórica. Su finalidad es facilitar la consulta de patrimonio documental histórico de acceso público relativa a los refugiados de la Guerra Civil Española y ofrecer herramientas de búsqueda que permitan localizar referencias de personas, acontecimientos y hechos de ese periodo de la historia.</p>
+  <p>El proyecto realiza un tratamiento automatizado de la información contenida en documentos históricos mediante técnicas de reconocimiento óptico de caracteres (OCR) y herramientas de inteligencia artificial en entornos locales. Este tratamiento tiene como única finalidad facilitar la búsqueda y consulta de la documentación original, en ningún caso almacena los documentos ni resproducciones digitales.</p>
+  <p>Los datos se extraen exclusivamente de los documentos históricos citados y no se incorporan intencionadamente datos personales procedentes de otras fuentes. No se elaboran perfiles personales de ningún tipo, tampoco se evalúa a las posibles personas citadas ni se adoptan decisiones automatizadas sobre el texto recogido.</p>
+  <p>El tratamiento se realiza con fines exclusivamente de investigación y divulgación histórica, al amparo del artículo 89 del Reglamento General de Protección de Datos (RGPD) y de la normativa estatal aplicable, respetando los principios de finalidad, proporcionalidad, minimización y exactitud de los datos.</p>
+
+  <h3>2. Tecnología empleada</h3>
+  <p>Para garantizar un funcionamiento rápido, seguro y eficiente, "Destino Francia 1939" se ejecuta mediante una arquitectura de funciones sin servidor en el borde de la red. Las consultas al buscador se procesan a través de Cloudflare Workers y la indexación de los datos históricos se almacena de forma optimizada en una base de datos Cloudflare con limitaciones de accesos, usos y consultas que evite su volcado o explotación masiva de manera sencilla.</p>
+  <p>Cloudflare actúa como proveedor de servicios tecnológicos e infraestructura de red, cumpliendo con los estándares europeos de protección de datos y el RGPD mediante la aplicación de garantías técnicas de seguridad y cifrado en tránsito y en reposo, sin que dichos proveedores utilicen la información para fines propios.</p>
+
+  <h3>3. Ausencia de cookies y analítica</h3>
+  <p>Este sitio web no utiliza cookies de seguimiento, herramientas de analítica ni scripts de perfilado de usuarios. La navegación y las búsquedas en "Destino Francia 1939" se realizan de forma completamente anónima, respetando estrictamente la privacidad de los visitantes. Asimismo, se han implementado instrucciones técnicas para evitar la indexación automatizada del buscador por parte de motores de búsqueda externos.</p>
+
+  <h3>4. Responsable del tratamiento</h3>
+  <p>El responsable del tratamiento es <strong>Julián Moyano C.</strong>, con domicilio de contacto a efectos de privacidad en <a href="mailto:destinofrancia1939@gmail.com">Mail de contacto</a>.</p>
+
+  <h3>5. Protección de datos y derechos de las personas</h3>
+  <p>La documentación consultada se refiere a hechos históricos de 1939. El Reglamento General de Protección de Datos (RGPD) no resulta aplicable a los datos personales de personas fallecidas. No obstante, conforme al artículo 3 de la Ley Orgánica 3/2018, de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD), las personas vinculadas al fallecido por razones familiares o de hecho, así como sus herederos, podrán instar el acceso, la rectificación o la supresión de los datos de la persona fallecida en los términos previstos en dicha normativa.</p>
+  <p>En el caso hipotético de que la información se refiera a personas que continúen vivas, estas podrán ejercer los derechos que les reconoce el RGPD (acceso, rectificación, supresión, oposición y limitación del tratamiento) cuando resulten aplicables.</p>
+  <h3>6. Solicitudes, tramitación y contacto</h3>
+  <p>Si apareces en la documentación o eres familiar/heredero de una persona reflejada en ella y deseas comunicar un error, solicitar la revisión de un dato o ejercer alguno de los derechos reconocidos por la normativa, puedes escribir a <a href="mailto:destinofrancia1939@gmail.com">Mail de contacto</a>.</p>
+  <p>Las solicitudes serán examinadas individualmente y se responderán lo antes posible.</p>
+  <p>En caso de proceder, se corregirá o eliminará la información correspondiente a la base de datos para que deje de ser recuperable. Esta actuación se refiere exclusivamente a la información indexada y publicada en "Destino Francia 1939".</p>
+</section>
+</p>
+
+  
+  
   </article>
 </dialog>
 
