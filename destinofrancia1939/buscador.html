@@ -8,7 +8,7 @@
 <meta name="description" content="Buscador de Refugiados de la Guerra Civil española llegados a Francia. Destino francia 1939">
 <link rel="preconnect" href="https://fonts.googleapis.com"> 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Inter:wght@400;500;600&family=Special+Elite&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <style>
  :root{
   --papel:#f5f2ec;
@@ -21,6 +21,10 @@
   --sombra:0 1px 2px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.06);
   --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
   --sans:Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --maquina:"Special Elite", "Courier Prime", "Courier New", Courier, monospace;
+  --mano:Caveat, "Segoe Print", "Bradley Hand", cursive;
+  --tinta-maq:#2a2622;   /* tinta de cinta de máquina */
+  --lapiz:#a3392c;       /* lápiz rojo de archivero */
 }
 *{box-sizing:border-box}
 html,body{margin:0}
@@ -110,22 +114,75 @@ main{max-width:960px; margin:0 auto; padding:0 16px 4rem}
   color:var(--tinta); font-size:.9rem; line-height:1.45;
 }
 
+/* ---------- Ficha de archivo (sin imágenes externas) ---------- */
 .resultado{
-  display:grid; grid-template-columns:150px 1fr; gap:1.25rem;
-  padding:1.25rem 1.5rem; border-bottom:1px solid var(--linea);
+  position:relative;
+  display:grid; grid-template-columns:118px 1fr; gap:1.4rem;
+  padding:1.4rem 1.5rem 1.3rem; border-bottom:1px solid var(--linea);
+  background:
+    radial-gradient(ellipse at 85% 10%, rgba(160,130,80,.07), transparent 60%),
+    radial-gradient(ellipse at 10% 95%, rgba(120,90,50,.06), transparent 55%),
+    var(--papel);
+  animation:entrar .45s ease both;
+  animation-delay:calc(var(--i, 0) * 55ms);
 }
+.resultado:nth-child(even){background-color:#f2eee6}
 .resultado:last-child{border-bottom:0}
-.mini{
-  display:block; width:150px; aspect-ratio:4/3; overflow:hidden;
-  background:var(--papel-2); border:1px solid var(--linea); border-radius:2px;
+/* margen rojo de ficha */
+.resultado::before{
+  content:""; position:absolute; top:0; bottom:0; left:calc(1.5rem + 118px + .7rem);
+  width:1px; background:rgba(163,57,44,.28);
 }
-.mini img{width:100%; height:100%; object-fit:cover; display:block; filter:sepia(.15); transition:filter .25s, transform .25s}
-.mini:hover img{filter:none; transform:scale(1.03)}
-.mini.sin-imagen{display:flex; align-items:center; justify-content:center; color:var(--tinta-2); font-size:.75rem; text-align:center; padding:.5rem}
-.resultado .fuente{font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--acento); font-weight:600; margin-bottom:.35rem}
-.resultado .fuente1{font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--tinta); font-weight:600; margin-bottom:.35rem}
-.resultado .texto{font-family:var(--serif); font-size:1.05rem; margin:0 0 .6rem}
-.resultado .texto strong{font-weight:600; background:var(--marca); padding:0 .12em; border-radius:2px}
+@keyframes entrar{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
+
+/* Sello de tampón: enlace al documento original */
+.sello{
+  align-self:start; justify-self:center;
+  display:flex; flex-direction:column; align-items:center; gap:.1rem;
+  width:108px; padding:.55rem .4rem .45rem;
+  border:2px solid currentColor; outline:1px solid currentColor; outline-offset:2px;
+  border-radius:3px; color:var(--acento); text-decoration:none;
+  font-family:var(--maquina); text-transform:uppercase; text-align:center; line-height:1.1;
+  transform:rotate(var(--giro, -4deg)); opacity:.82;
+  mix-blend-mode:multiply;
+  text-shadow:0 0 .6px currentColor;
+  transition:opacity .2s, transform .25s;
+}
+.sello:hover, .sello:focus-visible{opacity:1; transform:rotate(0deg) scale(1.04); outline-offset:3px}
+.sello .s-arriba{font-size:.58rem; letter-spacing:.16em}
+.sello .s-num{font-size:1.15rem; letter-spacing:.06em; margin:.12rem 0}
+.sello .s-abajo{font-size:.52rem; letter-spacing:.06em; white-space:nowrap; border-top:1px dashed currentColor; padding-top:.2rem; width:100%}
+.sello .s-mano{
+  font-family:var(--mano); text-transform:none; font-size:.95rem; letter-spacing:0;
+  color:#2c4a6e; transform:rotate(3deg); margin-top:.25rem; text-shadow:none;
+}
+
+/* Texto mecanografiado sobre papel pautado */
+.resultado .texto{
+  font-family:var(--maquina); font-size:1rem; color:var(--tinta-maq);
+  line-height:1.85rem; margin:0 0 .7rem; padding-left:.4rem;
+  text-shadow:.3px .3px 0 rgba(42,38,34,.35), -.2px 0 .4px rgba(42,38,34,.25);
+  background-image:repeating-linear-gradient(to bottom, transparent 0, transparent calc(1.85rem - 1px), rgba(90,110,140,.16) calc(1.85rem - 1px), rgba(90,110,140,.16) 1.85rem);
+  word-spacing:.05em;
+}
+/* Coincidencias: marcadas a mano con lápiz rojo */
+.resultado .texto strong{
+  font-weight:normal; color:var(--lapiz); padding:0 .14em; border-radius:2px;
+  background-image:
+    linear-gradient(100deg, rgba(239,225,184,0) 0%, rgba(239,210,140,.75) 4%, rgba(239,215,150,.6) 96%, rgba(239,225,184,0) 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M1 4 Q 20 1.5 40 3.6 T 75 3 T 99 2.6' fill='none' stroke='%23a3392c' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:0 60%, 0 100%;
+  background-size:0% 62%, 0% 6px;
+  animation:subrayar .7s ease-out forwards;
+  animation-delay:calc(var(--i, 0) * 55ms + .3s);
+  box-decoration-break:clone; -webkit-box-decoration-break:clone;
+}
+@keyframes subrayar{to{background-size:100% 62%, 100% 6px}}
+
+.resultado .fuente{font-family:var(--maquina); font-size:.74rem; letter-spacing:.1em; text-transform:uppercase; color:var(--acento); margin-bottom:.35rem; text-decoration:none; border-bottom:1px dotted transparent}
+.resultado a.fuente:hover{border-bottom-color:var(--acento)}
+.resultado .fuente1{font-family:var(--maquina); font-size:.74rem; letter-spacing:.1em; text-transform:uppercase; color:var(--tinta-2); margin-bottom:.35rem}
 .resultado a.ver{font-size:.85rem; color:var(--tinta); text-decoration:none; border-bottom:1px solid var(--linea)}
 .resultado a.ver:hover{border-bottom-color:var(--acento); color:var(--acento)}
 
@@ -172,13 +229,21 @@ footer button{background:none; border:0; color:inherit; text-decoration:underlin
 @media (max-width:640px){
   nav.top button{margin-left:.7rem; font-size:.82rem}
   .portada{padding-top:2rem}
-  .resultado{grid-template-columns:1fr; gap:.8rem; padding:1.1rem 1rem}
-  .mini{width:100%; aspect-ratio:16/9}
+  .resultado{grid-template-columns:1fr; gap:.7rem; padding:1.1rem 1rem}
+  .resultado::before{display:none}
+  .sello{flex-direction:row; justify-self:start; width:auto; gap:.5rem; padding:.3rem .6rem; align-items:baseline}
+  .sello .s-num{font-size:.95rem; margin:0}
+  .sello .s-abajo{border-top:0; border-left:1px dashed currentColor; padding:0 0 0 .5rem; width:auto}
+  .sello .s-mano{display:none}
+  .resultado .texto{padding-left:0}
   #estado{padding:.9rem 1rem}
   #estado > span:nth-child(2){margin-left:0; flex-basis:100%}
   dialog .cab, dialog article{padding-left:1.1rem; padding-right:1.1rem}
 }
-@media (prefers-reduced-motion:reduce){*{transition:none !important}}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important; animation:none !important}
+  .resultado .texto strong{background-size:100% 62%, 100% 6px}
+}
 </style>
 </head>
 <body>
@@ -471,16 +536,20 @@ function pintarEstado(hayCompletos, parciales) {
 }
 
 function pintar(desde, hasta) {
-  const html = lista.slice(desde, hasta).map(x => {
+  const html = lista.slice(desde, hasta).map((x, k) => {
     const url = x.url || "";
     const u = esc(url);
-    const uImg = esc(url.replace("_L-medium.jpg", "_L/TileGroup0/2-1-1.jpg"));
+    const n = desde + k + 1;
+    const giro = (((n * 37) % 9) - 5).toFixed(0);   // inclinación estable del tampón (-5º a 3º)
 
     return `
-      <article class="resultado">
-        <a class="mini" href="${u}" target="_blank" rel="noopener" aria-label="Abrir imagen del documento">
-          <img src="${uImg}" alt="" loading="lazy" decoding="async"
-               onerror="this.parentNode.classList.add('sin-imagen');this.parentNode.textContent='Sin vista previa'">
+      <article class="resultado" style="--i:${k};--giro:${giro}deg">
+        <a class="sello" href="${u}" target="_blank" rel="noopener" aria-label="Abrir el documento original (ficha ${n})">
+          <span class="s-arriba">Resultado</span>
+          <span class="s-num">N.º ${String(n).padStart(3, "0")}</span>
+          <span class="s-abajo">Destino Francia</span>
+		  <span class="s-abajo">1939</span>
+          <span class="s-mano" aria-hidden="true">ver original</span>
         </a>
         <div>
           <p class="texto">${fragmento(x._a)}</p>
