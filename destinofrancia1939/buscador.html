@@ -387,7 +387,7 @@ const POR_PAGINA = 10;
 const UMBRAL_AVISO = 35;   
 const CONTEXTO = 15;       
 
-const esc = s => (s ? s.replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])) : "");
+const esc = s => (s ? s.replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#40;"}[c])) : "");
 
 const $q = document.getElementById("q");
 const $res = document.getElementById("res");
@@ -529,7 +529,7 @@ function pintarEstado(hayCompletos, parciales) {
   }
 
   if (n > UMBRAL_AVISO || totalServidor > todos.length) {
-    h += `<div class="aviso"><b>Búsqueda demasiado amplia.</b> Se muestran solo 40 resultados. Añada algún apellido, lugar, recuerdo...` +
+    h += `<div class="aviso"><b>Búsqueda demasiado amplia.</b> Se muestran solo 40 resultados. Añada algúna palabra, lugar, recuerdo...` +
          `</div>`;
   }
   $estado.innerHTML = h;
@@ -554,7 +554,7 @@ function pintar(desde, hasta) {
         <div>
           <p class="texto">${fragmento(x._a)}</p>
           <div class="fuente1">Direction générale de la Sûreté nationale</div>
-		  <a class="fuente" href="${u}" target="_blank" rel="noopener">Archives nationales (Fr.)↗</a>
+		  <a class="fuente" href="${u}" target="_blank" rel="noopener"><strong>Ver en Archives nationales (Fr.)↗</strong></a>
         </div>
       </article>`;
   }).join("");
