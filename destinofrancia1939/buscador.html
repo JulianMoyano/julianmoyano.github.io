@@ -135,23 +135,36 @@ main{max-width:960px; margin:0 auto; padding:0 16px 4rem}
 }
 @keyframes entrar{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
 
-/* Sello de tampón: enlace al documento original */
+/* Sello de archivo: enlace al documento original */
 .sello{
+  --tinta:#4f5866;
   align-self:start; justify-self:center;
   display:flex; flex-direction:column; align-items:center;
-  width:108px; padding:.5rem .4rem;
-  border:2px solid; outline:1px solid; outline-offset:2px; border-radius:3px;
-  color:var(--acento); text-decoration:none; opacity:.85;
+  width:116px; padding:.35rem .35rem .3rem;
+  border:4px double var(--tinta); border-radius:2px;
+  color:var(--tinta); text-decoration:none;
   font-family:var(--maquina); text-transform:uppercase; text-align:center; line-height:1.1;
-  mix-blend-mode:multiply;
+  opacity:.82; mix-blend-mode:multiply;
+  text-shadow:0 0 .6px currentColor;
+  /* tinta gastada: huecos irregulares */
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -3 2.6'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
+          mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -3 2.6'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
   transition:opacity .2s;
 }
 .sello:hover, .sello:focus-visible{opacity:1}
-.sello .s-arriba{font-size:.84rem; letter-spacing:.16em}
-.sello .s-num{font-size:1.15rem; letter-spacing:.06em; margin:.15rem 0}
-.sello .s-abajo{font-size:.52rem; letter-spacing:.06em; white-space:nowrap; border-top:1px dashed; padding-top:.2rem; width:100%}
-.sello .s-mano{font-family:var(--mano); text-transform:none; font-size:.95rem; letter-spacing:0; color:#2c4a6e; margin-top:.25rem}
 
+.sello .s-arriba{
+  width:100%; padding-bottom:.2rem; border-bottom:1px solid;
+  font-size:clamp(.6rem, 2.4vw, .66rem); letter-spacing:.22em; margin-right:-.22em;
+}
+.sello .s-num{
+  font-size:1.35rem; letter-spacing:.04em; margin:.25rem 0 .2rem;
+  font-variant-numeric:tabular-nums;
+}
+.sello .s-abajo{
+  width:100%; padding-top:.2rem; 
+  font-size:.56rem; letter-spacing:.08em; white-space:nowrap;
+}
 /* Texto mecanografiado sobre papel pautado */
 .resultado .texto{
   font-family:var(--maquina); font-size:1rem; color:var(--tinta-maq);
@@ -507,7 +520,7 @@ function prepararLista() {
 function pintarEstado(hayCompletos, parciales) {
   const n = lista.length;
   let h = `<span><b>${n.toLocaleString("es-ES")}</b> ${n === 1 ? "resultado encontrado" : "resultados encontrados"}</span>` +
-          `<span>«${esc(textoBusqueda)}»</span>`; 
+          `<span>«${esc(textoBusqueda)}»</span>`;
 
   if (!hayCompletos && todos.length) {
     h += `<span class="nota">Ningún documento contiene todos los términos; se muestran coincidencias parciales.</span>`;
@@ -539,9 +552,9 @@ function pintar(desde, hasta) {
     return `
       <article class="resultado" style="--i:${k};--giro:${giro}deg">
         <a class="sello" href="${u}" target="_blank" rel="noopener" aria-label="Abrir el documento original (ficha ${n})">
-          <span class="s-arriba">N.º ${String(n).padStart(2, "0")}</span>
-                 <span class="s-abajo"></span>
-				 	          <span class="s-mano" aria-hidden="true">Archives nationales (Fr.)↗</span>
+  <span class="s-num">N.º ${String(n).padStart(2, "0")}</span>
+  <span class="s-abajo">Archives</span>          
+  <span class="s-abajo">nationales (Fr.)↗</span>				 	          
         </a>
         <div>
           <p class="texto">${fragmento(x._a)}</p>
