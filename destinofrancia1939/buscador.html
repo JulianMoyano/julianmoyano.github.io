@@ -532,8 +532,8 @@ function pintarEstado(hayCompletos, parciales) {
   if (totalServidor > todos.length) {
     h += `<span class="nota">La consulta tiene muchas coincidencias (${totalServidor.toLocaleString("es-ES")}) y solo se han cargado las ${todos.length.toLocaleString("es-ES")} más relevantes.</span>`;
   }
-
-  if (n > UMBRAL_AVISO || totalServidor > todos.length) {
+	
+if (todos.length >= UMBRAL_AVISO || totalServidor > todos.length) {
     h += `<div class="aviso"><b>Búsqueda demasiado amplia.</b> Se muestran solo 40 resultados. Añada algúna palabra, lugar, recuerdo...` +
          `</div>`;
   }
