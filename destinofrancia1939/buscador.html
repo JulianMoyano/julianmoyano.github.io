@@ -176,8 +176,7 @@ main{max-width:960px; margin:0 auto; padding:0 16px 4rem}
 /* Coincidencias: marcadas a mano con lápiz rojo */
 .resultado .texto strong{
   font-weight:bold; color:var(--lapiz); padding:0 .14em; border-radius:2px;
-  background-image:
-    background-image:linear-gradient(100deg, rgba(200,200,200,0) 0%, rgba(200,200,200,.6) 4%, rgba(200,200,200,.5) 96%, rgba(200,200,200,0) 100%);
+   background-image:linear-gradient(100deg, rgba(200,200,200,0) 0%, rgba(200,200,200,.6) 4%, rgba(200,200,200,.5) 96%, rgba(200,200,200,0) 100%);
   background-repeat:no-repeat;
   background-position:0 60%, 0 100%;
   background-size:0% 62%, 0% 6px;
@@ -315,8 +314,7 @@ footer button{background:none; border:0; color:inherit; text-decoration:underlin
 <li><a href="https://ihr.world/es/" target="_blank">Datos referenciados Guerra Civil y franquismo (IHR)</a></li> 
 <li><a href="https://archives.ofpra.gouv.fr/archive/recherche/espagnol" target="_blank">Fichier espagnol de l'Ofpra</a></li> 
 <li><a href="https://buscar.combatientes.es/" target="_blank">Buscar Combatientes. Buscador de la Guerra Civil Española</a></li>
-</ul></p>
- 
+</ul> 
    <h2>Imágenes re-utilizadas</h2>
 	  <ul>
 <li>Arrivés des réfugiés républicains du camp d'Argelès-sur-Mer à celui du Barcarès. Fonds Chauvin. <a href="https://es.wikipedia.org/wiki/La_retirada#/media/Archivo:22NUM1PH2-24_Correspond_%C3%A0_la_photographie_27_Fi_124_du_fonds_Chauvin,_Arriv%C3%A9e_des_soldats_r%C3%A9fugi%C3%A9s_au_camp_du_Barcar%C3%A8s.jpg" target="_blank">Wikipedia</a> CC BY-SA 4.0</li>
@@ -331,7 +329,7 @@ footer button{background:none; border:0; color:inherit; text-decoration:underlin
    <p><strong><i>1. Finalidad y tratamiento de los datos</i></strong></p>
   <p><strong>"Destino Francia 1939"</strong> es una iniciativa independiente y altruista de investigación para la divulgación histórica de documentación conservada en Archivos públicos. Su finalidad es facilitar la consulta de patrimonio documental histórico de acceso público relativa a los refugiados de la Guerra Civil Española y ofrecer herramientas de búsqueda que permitan localizar referencias de personas, acontecimientos y hechos de ese periodo de la historia.</p>
   <p>El proyecto realiza un tratamiento automatizado de la información contenida en documentos históricos mediante técnicas de reconocimiento óptico de caracteres (OCR) y herramientas de inteligencia artificial en entornos locales controlados, estas técnicas generan errores y problemas de trancripción pero prima de nuevo la divulgación histórica, siempre se debe contrastar con la documentación original custodiada por los Archivos Nacionales de Francia. Este tratamiento tiene como única finalidad facilitar la búsqueda y consulta de la documentación original, en ningún caso almacena los documentos ni reproducciones digitales de la fuente original.</p>
-  <p>Los datos se extraen exclusivamente de los documentos históricos citados y no se incorporan intencionadamente datos personales procedentes de otras fuentes. Tampoco se elaboran perfiles personales de ningún tipo, ni se evalúa a las posibles personas mencionadas o se adoptan decisiones sobre el texto recogido.</p> Los datos e información de caracter histórico de este sitio se conservará mientras el proyecto permanezca activo y persista su finalidad de investigación y divulgación histórica.
+  <p>Los datos se extraen exclusivamente de los documentos históricos citados y no se incorporan intencionadamente datos personales procedentes de otras fuentes. Tampoco se elaboran perfiles personales de ningún tipo, ni se evalúa a las posibles personas mencionadas o se adoptan decisiones sobre el texto recogido.</p> <p>Los datos e información de caracter histórico de este sitio se conservará mientras el proyecto permanezca activo y persista su finalidad de investigación y divulgación histórica.</p>
   <p><strong>El tratamiento se realiza con fines exclusivamente de investigación y divulgación histórica.</strong></p>
 
   <p><strong><i>2. Tecnología empleada</i></strong></p>
@@ -391,10 +389,10 @@ document.querySelectorAll("dialog").forEach(d => {
 });
 
 const POR_PAGINA = 10;     
-const UMBRAL_AVISO = 35;   
+const UMBRAL_AVISO = 40;   
 const CONTEXTO = 15;       
 
-const esc = s => (s ? s.replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#40;"}[c])) : "");
+const esc = s => (s ? s.replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])) : "");
 
 const $q = document.getElementById("q");
 const $res = document.getElementById("res");
@@ -432,16 +430,18 @@ function distancia(a, b, max) {
   return prev[lb];
 }
 
-const tolerancia = n => (n <= 3 ? 1 : n <= 6 ? 2 : 3);
+const tolerancia = n => (n <= 3 ? 0 : n <= 7 ? 1 : 2);
 
 function peso(w, t) {
   if (!w || !t) return 0;
-  if (t.length < 3) return w === t ? 3 : 0;
-  if (w.includes(t)) return 3;
+  if (w === t) return 4;                          // palabra exacta: máxima puntuación
+  if (t.length < 3) return 0;                     // 1-2 letras: solo exacta
+  if (w.startsWith(t)) return 3;                  // palabra incompleta: "Martin" → "Martinez"
   const tol = tolerancia(t.length);
-  if (distancia(w, t, tol) <= tol) return 2;
-  if (t.length >= 4 && w.length > t.length &&
-      distancia(w.slice(0, t.length), t, tol) <= tol) return 1;
+  if (tol && distancia(w, t, tol) <= tol) return 2;              // errata en la palabra entera
+  if (t.length >= 4 && w.includes(t)) return 1;                  // dentro de otra palabra
+  if (tol && t.length >= 4 && w.length > t.length &&
+      distancia(w.slice(0, t.length), t, tol) <= tol) return 1;  // incompleta y con errata
   return 0;
 }
 
@@ -547,10 +547,9 @@ function pintar(desde, hasta) {
     const url = x.url || "";
     const u = esc(url);
     const n = desde + k + 1;
-    const giro = (((n * 37) % 9) - 5).toFixed(0);   // inclinación estable del tampón (-5º a 3º)
-
+   
     return `
-      <article class="resultado" style="--i:${k};--giro:${giro}deg">
+      <article class="resultado" style="--i:${k}; deg">
         <a class="sello" href="${u}" target="_blank" rel="noopener" aria-label="Abrir el documento original (ficha ${n})">
   <span class="s-num">N.º ${String(n).padStart(2, "0")}</span>
   <span class="s-abajo">Archives</span>          
