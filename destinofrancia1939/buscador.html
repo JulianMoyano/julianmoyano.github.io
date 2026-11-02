@@ -138,24 +138,19 @@ main{max-width:960px; margin:0 auto; padding:0 16px 4rem}
 /* Sello de tampón: enlace al documento original */
 .sello{
   align-self:start; justify-self:center;
-  display:flex; flex-direction:column; align-items:center; gap:.1rem;
-  width:108px; padding:.55rem .4rem .45rem;
-  border:2px solid currentColor; outline:1px solid currentColor; outline-offset:2px;
-  border-radius:3px; color:var(--acento); text-decoration:none;
+  display:flex; flex-direction:column; align-items:center;
+  width:108px; padding:.5rem .4rem;
+  border:2px solid; outline:1px solid; outline-offset:2px; border-radius:3px;
+  color:var(--acento); text-decoration:none; opacity:.85;
   font-family:var(--maquina); text-transform:uppercase; text-align:center; line-height:1.1;
-  transform:rotate(var(--giro, -4deg)); opacity:.82;
   mix-blend-mode:multiply;
-  text-shadow:0 0 .6px currentColor;
-  transition:opacity .2s, transform .25s;
+  transition:opacity .2s;
 }
-.sello:hover, .sello:focus-visible{opacity:1; transform:rotate(0deg) scale(1.04); outline-offset:3px}
-.sello .s-arriba{font-size:.58rem; letter-spacing:.16em}
-.sello .s-num{font-size:1.15rem; letter-spacing:.06em; margin:.12rem 0}
-.sello .s-abajo{font-size:.52rem; letter-spacing:.06em; white-space:nowrap; border-top:1px dashed currentColor; padding-top:.2rem; width:100%}
-.sello .s-mano{
-  font-family:var(--mano); text-transform:none; font-size:.95rem; letter-spacing:0;
-  color:#2c4a6e; transform:rotate(3deg); margin-top:.25rem; text-shadow:none;
-}
+.sello:hover, .sello:focus-visible{opacity:1}
+.sello .s-arriba{font-size:.84rem; letter-spacing:.16em}
+.sello .s-num{font-size:1.15rem; letter-spacing:.06em; margin:.15rem 0}
+.sello .s-abajo{font-size:.52rem; letter-spacing:.06em; white-space:nowrap; border-top:1px dashed; padding-top:.2rem; width:100%}
+.sello .s-mano{font-family:var(--mano); text-transform:none; font-size:.95rem; letter-spacing:0; color:#2c4a6e; margin-top:.25rem}
 
 /* Texto mecanografiado sobre papel pautado */
 .resultado .texto{
@@ -167,10 +162,9 @@ main{max-width:960px; margin:0 auto; padding:0 16px 4rem}
 }
 /* Coincidencias: marcadas a mano con lápiz rojo */
 .resultado .texto strong{
-  font-weight:normal; color:var(--lapiz); padding:0 .14em; border-radius:2px;
+  font-weight:bold; color:var(--lapiz); padding:0 .14em; border-radius:2px;
   background-image:
-    linear-gradient(100deg, rgba(239,225,184,0) 0%, rgba(239,210,140,.75) 4%, rgba(239,215,150,.6) 96%, rgba(239,225,184,0) 100%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 6' preserveAspectRatio='none'%3E%3Cpath d='M1 4 Q 20 1.5 40 3.6 T 75 3 T 99 2.6' fill='none' stroke='%23a3392c' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-image:linear-gradient(100deg, rgba(200,200,200,0) 0%, rgba(200,200,200,.6) 4%, rgba(200,200,200,.5) 96%, rgba(200,200,200,0) 100%);
   background-repeat:no-repeat;
   background-position:0 60%, 0 100%;
   background-size:0% 62%, 0% 6px;
@@ -513,7 +507,7 @@ function prepararLista() {
 function pintarEstado(hayCompletos, parciales) {
   const n = lista.length;
   let h = `<span><b>${n.toLocaleString("es-ES")}</b> ${n === 1 ? "resultado encontrado" : "resultados encontrados"}</span>` +
-          `<span>«${esc(textoBusqueda)}»</span>`;
+          `<span>«${esc(textoBusqueda)}»</span>`; 
 
   if (!hayCompletos && todos.length) {
     h += `<span class="nota">Ningún documento contiene todos los términos; se muestran coincidencias parciales.</span>`;
@@ -545,16 +539,14 @@ function pintar(desde, hasta) {
     return `
       <article class="resultado" style="--i:${k};--giro:${giro}deg">
         <a class="sello" href="${u}" target="_blank" rel="noopener" aria-label="Abrir el documento original (ficha ${n})">
-          <span class="s-arriba">Resultado</span>
-          <span class="s-num">N.º ${String(n).padStart(3, "0")}</span>
-          <span class="s-abajo">Destino Francia</span>
-		  <span class="s-abajo">1939</span>
-          <span class="s-mano" aria-hidden="true">ver original</span>
+          <span class="s-arriba">N.º ${String(n).padStart(2, "0")}</span>
+                 <span class="s-abajo"></span>
+				 	          <span class="s-mano" aria-hidden="true">Archives nationales (Fr.)↗</span>
         </a>
         <div>
           <p class="texto">${fragmento(x._a)}</p>
-          <div class="fuente1">Direction générale de la Sûreté nationale</div>
-		  <a class="fuente" href="${u}" target="_blank" rel="noopener"><strong>Ver en Archives nationales (Fr.)↗</strong></a>
+          <div class="fuente1">Direction générale de la Sûreté nationale <a class="fuente1" href="${u}" target="_blank" rel="noopener"><strong>Ver en Archives nationales (Fr.)↗</strong></a></div>
+		  
         </div>
       </article>`;
   }).join("");
