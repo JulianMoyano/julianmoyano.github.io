@@ -626,7 +626,7 @@ async function buscar() {
     if (!todos.length) {
       $estado.innerHTML = "";
       $res.innerHTML = `<div class="vacio">No hay documentos que coincidan con esa búsqueda.
-        <em>Prueba con menos términos o con otra grafía.</em></div>`;
+        </div>`;
       $mas.hidden = true;
       return;
     }
